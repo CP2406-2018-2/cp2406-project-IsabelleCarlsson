@@ -12,7 +12,7 @@ Estimate: 1 hour
 
 Estimate: 4 hours
 
-- A user needs devices so that they can configure/view them (TODO)
+- A user needs devices so that they can configure/view them (DONE)
 
 Estimate: 3 hours
 
@@ -21,10 +21,6 @@ Estimate: 3 hours
 Estimate: 40 minutes
 
 - A user needs a menu system to be able to view the status of devices (TODO)
-
-Estimate: 1 hour
-
-- A user needs a menu system to be able to configure the devices (TODO)
 
 Estimate: 1 hour
 
