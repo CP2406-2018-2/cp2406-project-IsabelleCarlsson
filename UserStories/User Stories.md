@@ -1,10 +1,10 @@
 # User Stories
 
-- A user needs a menu so that they can navigate the simulator (TODO)
+- A user needs a menu so that they can navigate the simulator (DONE)
 
 Estimate: 1 hour
 
-- A user needs a menu option so that they can start the simulator (TODO)
+- A user needs to start the simulator through the menu option (TODO)
 
 Estimate: 1 hour
 
