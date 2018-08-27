@@ -4,7 +4,7 @@
 
 Estimate: 6 hours
 
-- A user needs a clock to view the time of a simulated day (TODO)
+- A user needs a clock to view the time of a simulated day (BUGGY)
 
 Estimate: 4 hours
 

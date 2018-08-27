@@ -78,6 +78,37 @@ public class HomeSimulator {
         }
     }
 
+    public void runSimTime(double simMinPerSec){
+        int pauseFreqMs = 10000;
+        int simRunHrs = 24;
+        int hours = 5;
+        int minutes = 0;
+        int hourCount = 0;
+        int pauseFreqSec = pauseFreqMs/1000;
+        simMinPerSec = simMinPerSec * pauseFreqSec;
+        while (hourCount < simRunHrs) {
+            //Print simulated time
+            System.out.printf("%d:%02d\n", hours, minutes);
+            //Pause for updateFreqMs amount of time
+            try {
+                Thread.sleep(pauseFreqMs);
+            } catch (Exception e) {
+                System.out.println("Message: " + e);
+            }
+            minutes+= simMinPerSec;
+            // Set hours back to 0 for 24 hour clock
+            if (hours > 23) {
+                hours = 0;
+            }
+            // Set minutes back to 0 for 60 minute clock
+            if (minutes > 59){
+                minutes = minutes%60;
+                hours++;
+                hourCount++;
+            }
+        }
+    }
+
     public void displayRooms(){
         for (SimRoom room: roomList) {
             System.out.println(room.getRoomName());
