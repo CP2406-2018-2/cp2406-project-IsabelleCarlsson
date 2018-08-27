@@ -13,9 +13,13 @@ Consider using this readme to record and track your progress through the semeste
 
 5. ~~Complete navigation menu of simulator~~ (DONE)
 
-6. Complete start the simulator through the menu option (TODO)
+6. ~~Complete HomeSimulator, SimRoom & SmartDevice classes~~ (DONE)
 
-7. ~~Complete device object so that they can configure/view them~~ (DONE)
+7. ~~Complete loadConfig method to HomeSimulator~~ (DONE)
 
-8. Menu system to be able to view the status of devices (TODO)
+8. 
+
+9. Complete start the simulator through the menu option (TODO)
+
+10. Menu system to be able to view the status of devices (TODO)
 
