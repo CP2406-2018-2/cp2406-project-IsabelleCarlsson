@@ -1,7 +1,4 @@
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -14,9 +11,10 @@ public class HomeSimulator {
     private List<SmartDevice> deviceList = new ArrayList<>();
     private List<String> roomNameList = new ArrayList<>();
     private List<SimRoom> roomList = new ArrayList<>();
+    private SimTime time;
 
     private HomeSimulator() {
-        configPath = "file.txt";
+        configPath = "file";
         houseName = "DefaultHouse";
         loadConfig();
         loadRooms();
@@ -30,9 +28,9 @@ public class HomeSimulator {
     }
 
     private void loadConfig() {
-//      Path inputPath = Paths.get("file");
-//      Path file = inputPath.toAbsolutePath();
-        Path file = Paths.get(configPath);
+//      File file = new File(configPath);
+//      Path path = file.toAbsolutePath();
+        Path path = Paths.get(configPath);
         String[] deviceArray;
         String s;
         String delimiter = ",";
@@ -43,7 +41,7 @@ public class HomeSimulator {
         SmartDevice device;
 
         try {
-            InputStream input = new BufferedInputStream(Files.newInputStream(file));
+            InputStream input = new BufferedInputStream(Files.newInputStream(path));
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
             System.out.println();
             s = reader.readLine();
@@ -66,11 +64,11 @@ public class HomeSimulator {
     }
 
     private void loadRooms() {
-        for (String room: roomNameList) {
+        for (String room : roomNameList) {
             roomList.add(new SimRoom(room));
         }
-        for (SimRoom room: roomList){
-            for (SmartDevice device: deviceList) {
+        for (SimRoom room : roomList) {
+            for (SmartDevice device : deviceList) {
                 if (room.getRoomName().equals(device.getRoomName())) {
                     room.addDevice(device);
                 }
@@ -78,45 +76,27 @@ public class HomeSimulator {
         }
     }
 
-    public void runSimTime(double simMinPerSec){
-        int pauseFreqMs = 10000;
-        int simRunHrs = 24;
-        int hours = 5;
-        int minutes = 0;
-        int hourCount = 0;
-        int pauseFreqSec = pauseFreqMs/1000;
-        simMinPerSec = simMinPerSec * pauseFreqSec;
-        while (hourCount < simRunHrs) {
-            //Print simulated time
-            System.out.printf("%d:%02d\n", hours, minutes);
-            //Pause for updateFreqMs amount of time
-            try {
-                Thread.sleep(pauseFreqMs);
-            } catch (Exception e) {
-                System.out.println("Message: " + e);
-            }
-            minutes+= simMinPerSec;
-            // Set hours back to 0 for 24 hour clock
-            if (hours > 23) {
-                hours = 0;
-            }
-            // Set minutes back to 0 for 60 minute clock
-            if (minutes > 59){
-                minutes = minutes%60;
-                hours++;
-                hourCount++;
-            }
+    public void startSimulator() {
+        time = new SimTime();
+    }
+
+    public void stopSimulator() {
+        time.stopTime();
+        System.out.println("Simulator stopped!");
+    }
+
+    public void displayTime() {
+        System.out.println(time.getTime());
+    }
+
+    public void displayRooms() {
+        for (SimRoom room : roomList) {
+            room.displayStatus();
         }
     }
 
-    public void displayRooms(){
-        for (SimRoom room: roomList) {
-            System.out.println(room.getRoomName());
-        }
-    }
-
-    public void displayDevices(){
-        for (SmartDevice device: deviceList) {
+    public void displayDevices() {
+        for (SmartDevice device : deviceList) {
             device.displayStatus();
         }
     }

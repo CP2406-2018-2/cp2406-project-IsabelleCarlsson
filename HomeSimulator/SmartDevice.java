@@ -41,7 +41,8 @@ public class SmartDevice {
             this.isActive = true;
         }
     }
+
     public void displayStatus() {
-        System.out.println("Device: " + deviceName + "\nUsage: " + electUsage + "\nActive: " + isActive);
+        System.out.println("Device: " + deviceName + "\nRoom: " + roomName + "\nUsage: " + electUsage + "\nActive: " + isActive + "\n");
     }
 }

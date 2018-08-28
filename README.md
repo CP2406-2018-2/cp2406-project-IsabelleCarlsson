@@ -17,9 +17,9 @@ Consider using this readme to record and track your progress through the semeste
 
 7. ~~Complete loadConfig method to HomeSimulator~~ (DONE)
 
-8. - A user needs a clock to view the time of a simulated day (BUGGY)
+8. ~~- A user needs a clock to view the time of a simulated day~~ (DONE)
 
-9. Complete start the simulator through the menu option (TODO)
+9. ~~Complete start the simulator through the menu option~~ (DONE)
 
 10. Menu system to be able to view the status of devices (TODO)
 

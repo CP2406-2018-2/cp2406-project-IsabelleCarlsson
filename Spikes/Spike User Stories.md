@@ -4,12 +4,12 @@
 
 Estimate: 6 hours
 
-- A user needs a clock to view the time of a simulated day (BUGGY)
-
-Estimate: 4 hours
-
 ### Completed
 
 - A user needs a way to make device belong to a room (DONE)
 
 Estimate: 3 hours
+
+- A user needs a clock to view the time of a simulated day (DONE)
+
+Estimate: 4 hours
