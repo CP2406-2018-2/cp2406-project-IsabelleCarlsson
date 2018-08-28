@@ -18,7 +18,7 @@ NOTE: Filepath from filename not working
 
 Estimate: 4 hours
 
-- A user needs to be able to set the simulator tickrate (TODO)
+- A user needs to be able to set the simulator time tickrate (TODO)
 
 Estimate: 1 hour
 
