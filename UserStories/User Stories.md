@@ -12,12 +12,6 @@ Estimate: 40 minutes
 
 Estimate: 2 hours
 
-- A user needs the program load configuration information from a text file so that they can define rules for it (BUGGY)
-
-NOTE: Filepath from filename not working
-
-Estimate: 4 hours
-
 - A user needs to be able to set the simulator time tickrate (TODO)
 
 Estimate: 1 hour
@@ -39,3 +33,7 @@ Estimate: 3 hours
 - A user needs a menu system to be able to view the status of devices (DONE)
 
 Estimate: 1 hour
+
+- A user needs the program load configuration information from a text file so that they can define rules for it (DONE)
+
+Estimate: 4 hours

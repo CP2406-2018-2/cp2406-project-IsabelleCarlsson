@@ -96,20 +96,38 @@ public class HomeSimulator {
     }
 
     public void start() {
-        int hrsRunning = 0;
+        double temperature = 18;
+        double sunlight = 0;
+        int hourCount = 0;
         int hours = 5;
         int minutes = 0;
-
-        while (hrsRunning <= 23){
-            System.out.printf("%d:%02d\n", hours, minutes);
+        String currentTime;
+        while (hourCount <= 23){
+            System.out.printf("\nTemp: %.2f °C", temperature);
+            System.out.printf("\nLight: %.2f %%" , sunlight);
+            currentTime = String.format("\nTime: %d:%02d", hours, minutes);
+            System.out.println(currentTime);
             minutes++;
+
+            if (hourCount < 6) {
+                temperature+= 0.03;
+            } else if (hourCount > 6) {
+                temperature-= 0.0131;
+            }
+
+            if (hourCount == 0){
+                sunlight += 1.6666666666666666666666666666667;
+            } else if (hourCount == 12) {
+                sunlight -= 1.6666666666666666666666666666667;
+            }
+
             if (hours > 23) {
                 hours = 0;
             }
             if (minutes > 59) {
                 minutes = 0;
                 hours++;
-                hrsRunning++;
+                hourCount++;
             }
             try {
                 Thread.sleep(1000);
