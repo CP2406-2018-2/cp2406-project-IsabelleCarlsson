@@ -11,10 +11,9 @@ public class HomeSimulator {
     private List<SmartDevice> deviceList = new ArrayList<>();
     private List<String> roomNameList = new ArrayList<>();
     private List<SimRoom> roomList = new ArrayList<>();
-    private SimTime time;
 
     private HomeSimulator() {
-        configPath = "file";
+        configPath = "config.txt";
         houseName = "DefaultHouse";
         loadConfig();
         loadRooms();
@@ -27,9 +26,17 @@ public class HomeSimulator {
         loadRooms();
     }
 
+    public SimRoom getRoomByName(String roomName) {
+        for (SimRoom room : roomList) {
+            if (room.getName().toLowerCase().equals(roomName.toLowerCase()))
+                return room;
+        }
+        return null;
+    }
+
     private void loadConfig() {
-//      File file = new File(configPath);
-//      Path path = file.toAbsolutePath();
+//      File config.txt = new File(configPath);
+//      Path path = config.txt.toAbsolutePath();
         Path path = Paths.get(configPath);
         String[] deviceArray;
         String s;
@@ -69,24 +76,11 @@ public class HomeSimulator {
         }
         for (SimRoom room : roomList) {
             for (SmartDevice device : deviceList) {
-                if (room.getRoomName().equals(device.getRoomName())) {
+                if (room.getName().equals(device.getRoomName())) {
                     room.addDevice(device);
                 }
             }
         }
-    }
-
-    public void startSimulator() {
-        time = new SimTime();
-    }
-
-    public void stopSimulator() {
-        time.stopTime();
-        System.out.println("Simulator stopped!");
-    }
-
-    public void displayTime() {
-        System.out.println(time.getTime());
     }
 
     public void displayRooms() {
@@ -98,6 +92,30 @@ public class HomeSimulator {
     public void displayDevices() {
         for (SmartDevice device : deviceList) {
             device.displayStatus();
+        }
+    }
+
+    public void start() {
+        int hrsRunning = 0;
+        int hours = 5;
+        int minutes = 0;
+
+        while (hrsRunning <= 23){
+            System.out.printf("%d:%02d\n", hours, minutes);
+            minutes++;
+            if (hours > 23) {
+                hours = 0;
+            }
+            if (minutes > 59) {
+                minutes = 0;
+                hours++;
+                hrsRunning++;
+            }
+            try {
+                Thread.sleep(1000);
+            } catch (Exception e) {
+                System.out.println("Exception " + e);
+            }
         }
     }
 }

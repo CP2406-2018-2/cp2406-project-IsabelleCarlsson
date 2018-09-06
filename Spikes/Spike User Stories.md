@@ -4,6 +4,14 @@
 
 Estimate: 6 hours
 
+- A user needs an overall environmental temperature to track the temperature thorough the day (TODO)
+
+Estimate 7 hours
+
+- A user needs an overall amount of sun light to track the sun light thorough the day (TODO)
+
+Estimate 7 hours
+
 ### Completed
 
 - A user needs a way to make device belong to a room (DONE)

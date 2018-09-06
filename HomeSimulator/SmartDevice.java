@@ -13,7 +13,7 @@ public class SmartDevice {
 
     public SmartDevice(String deviceName, String roomName, int electUsage, boolean isActive) {
         this.deviceName = deviceName;
-        this.electUsage = electUsage;
+        this.electUsage = electUsage; // in watts
         this.isActive = isActive;
         this.roomName = roomName;
     }
@@ -28,6 +28,18 @@ public class SmartDevice {
 
     public String getRoomName() {
         return roomName;
+    }
+
+    public void setDeviceName(String deviceName) {
+        this.deviceName = deviceName;
+    }
+
+    public void setElectUsage(int electUsage) {
+        this.electUsage = electUsage;
+    }
+
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
     }
 
     public boolean isActive() {

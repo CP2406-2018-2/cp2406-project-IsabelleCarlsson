@@ -16,20 +16,28 @@ public class SimRoom {
         this.isActive = false;
     }
 
-    public String getRoomName() {
+    public String getName() {
         return roomName;
+    }
+
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
     }
 
     public boolean isActive() {
         return isActive;
     }
 
-    public List<SmartDevice> getDeviceList() {
-        return deviceList;
-    }
-
     public void displayStatus() {
         System.out.println("Room: " + roomName + "\nUsage: " + getElectUsage() + "\nActive: " + isActive + "\n");
+    }
+
+    public SmartDevice getDeviceByName(String deviceName) {
+        for (SmartDevice device : deviceList) {
+            if (device.getName().toLowerCase().equals(deviceName.toLowerCase()))
+                return device;
+        }
+        return null;
     }
 
     public void addDevice(SmartDevice device) {
