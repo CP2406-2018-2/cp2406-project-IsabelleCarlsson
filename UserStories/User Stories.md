@@ -1,14 +1,10 @@
 # User Stories
 
-- A user needs to be able to configure the simulator through a menu option (TODO)
-
-Estimate: 1 hour
-
 - A user need to be notified when a device change occurs so that they know what changes are made to it (TODO)
 
 Estimate: 40 minutes
 
-- A user needs the program save configuration information to a text file so that they can define rules for it (DONE)
+- A user needs the program save configuration information to a text file so that they can define rules for it (TODO)
 
 Estimate: 2 hours
 
