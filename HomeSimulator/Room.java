@@ -2,18 +2,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Room {
-    private String roomName;
+    private String name;
     private boolean isActive;
     private String time;
+    private double temperature;
+    private double sunlight;
     private List<Device> deviceList = new ArrayList<>();
 
     public Room() {
-        roomName = "room";
+        name = "room";
         isActive = false;
     }
 
-    public Room(String roomName) {
-        this.roomName = roomName;
+    public Room(String name) {
+        this.name = name;
         isActive = false;
     }
 
@@ -23,18 +25,37 @@ public class Room {
         }
     }
 
+    public void updateEnvironVars(String time, double temperature, double sunlight) {
+        // Updates environmental variables
+        setTime(time);
+        setTemperature(temperature);
+        setSunlight(sunlight);
+    }
+
     public void updateDevices(String time, double temperature, double sunlight){
         for (Device device : deviceList) {
-            device.update(time, temperature, sunlight);
+            device.updateEnvironVars(time, temperature, sunlight);
         }
     }
 
     public String getName() {
-        return roomName;
+        return name;
     }
 
-    public void setRoomName(String roomName) {
-        this.roomName = roomName;
+    private void setTime(String time) {
+        this.time = time;
+    }
+
+    private void setTemperature(double temperature) {
+        this.temperature = temperature;
+    }
+
+    private void setSunlight(double sunlight) {
+        this.sunlight = sunlight;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public boolean isActive() {
@@ -42,7 +63,7 @@ public class Room {
     }
 
     public void displayStatus() {
-        System.out.println("Room: " + roomName + "\nUsage: " + getElectUsage() + "\nActive: " + isActive + "\n");
+        System.out.println("Room: " + name + "\nUsage: " + getElectUsage() + "\nActive: " + isActive + "\n");
     }
 
     public Device getDeviceByName(String deviceName) {

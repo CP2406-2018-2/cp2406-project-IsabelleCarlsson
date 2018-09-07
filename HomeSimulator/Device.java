@@ -1,31 +1,55 @@
 public class Device {
-    private String deviceName;
+    private String name;
     private int electUsage;
     private boolean isActive;
+    protected String room;
     private String time;
     private double temperature;
     private double sunlight;
 
     public Device() {
-        deviceName = "device";
+        name = "device";
         electUsage = 1;
         isActive = false;
+        room = "";
     }
 
-    public Device(String deviceName) {
-        this.deviceName = deviceName;
+    public Device(String name) {
+        this.name = name;
         electUsage = 1;
         isActive = false;
+        room = "";
     }
 
-    public void update(String time, double temperature, double sunlight) {
+    public void updateEnvironVars(String time, double temperature, double sunlight) {
+        // Updates environmental variables
+        setTime(time);
+        setTemperature(temperature);
+        setSunlight(sunlight);
+    }
+
+    private void setTime(String time) {
         this.time = time;
+    }
+
+    private void setTemperature(double temperature) {
         this.temperature = temperature;
+    }
+
+    private void setSunlight(double sunlight) {
         this.sunlight = sunlight;
     }
 
     public String getName() {
-        return deviceName;
+        return name;
+    }
+
+    public String getRoomName() {
+        return room;
+    }
+
+    public void setRoomName(String room) {
+        this.room = room;
     }
 
     public int getElectUsage() {
@@ -40,16 +64,12 @@ public class Device {
         return temperature;
     }
 
-    public String getDeviceName() {
-        return deviceName;
-    }
-
     public String getTime() {
         return time;
     }
 
-    public void setDeviceName(String deviceName) {
-        this.deviceName = deviceName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setElectUsage(int electUsage) {
@@ -66,6 +86,6 @@ public class Device {
     }
 
     public void displayStatus() {
-        System.out.println("Device: " + deviceName + "\nUsage: " + electUsage + "\nActive: " + isActive + "\n");
+        System.out.println("Device: " + name + "\nUsage: " + electUsage + "\nActive: " + isActive + "\n");
     }
 }

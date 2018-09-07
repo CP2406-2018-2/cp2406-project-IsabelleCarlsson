@@ -8,9 +8,13 @@ Estimate: 40 minutes
 
 Estimate: 2 hours
 
-- A user needs to be able to set the simulator time tickrate (TODO)
+- A user needs to be able to set the simulator time tick rate (TODO)
 
 Estimate: 1 hour
+
+- A user needs to be able to write triggering events in the text file that can be read by the program (TODO)
+
+Estimate: 5 hours
 
 ### Completed
 
