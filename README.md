@@ -13,9 +13,9 @@ Consider using this readme to record and track your progress through the semeste
 
 5. ~~Complete navigation menu of simulator~~ (DONE)
 
-6. ~~Complete HomeSimulator, SimRoom & SmartDevice classes~~ (DONE)
+6. ~~Complete Home, Room & Device classes~~ (DONE)
 
-7. ~~Complete loadConfig method to HomeSimulator~~ (DONE)
+7. ~~Complete loadConfig method to Home~~ (DONE)
 
 8. ~~- A user needs a clock to view the time of a simulated day~~ (DONE)
 

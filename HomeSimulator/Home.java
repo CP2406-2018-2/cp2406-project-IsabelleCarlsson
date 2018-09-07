@@ -5,64 +5,66 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeSimulator {
-    private String houseName;
+public class Home {
     private String configPath;
-    private List<SmartDevice> deviceList = new ArrayList<>();
     private List<String> roomNameList = new ArrayList<>();
-    private List<SimRoom> roomList = new ArrayList<>();
+    private List<Room> roomList = new ArrayList<>();
 
-    private HomeSimulator() {
+    private Home() {
         configPath = "config.txt";
-        houseName = "DefaultHouse";
         loadConfig();
-        loadRooms();
     }
 
-    public HomeSimulator(String houseName, String configPath) {
+    public Home(String configPath) {
         this.configPath = configPath;
-        this.houseName = houseName;
         loadConfig();
-        loadRooms();
     }
 
-    public SimRoom getRoomByName(String roomName) {
-        for (SimRoom room : roomList) {
+    public Room getRoomByName(String roomName) {
+        for (Room room : roomList) {
             if (room.getName().toLowerCase().equals(roomName.toLowerCase()))
                 return room;
         }
         return null;
     }
 
+    public void updateRooms(String time, double temperature, double sunlight) {
+        for (Room room : roomList) {
+            room.updateDevices(time, temperature, sunlight);
+        }
+    }
+
+    // E.g. a rule for controlling the sprinkler might look like this:
+    //
+    // sprinkler on: time = 3pm and garden < 30% moister, off: time = 4pm
+
     private void loadConfig() {
-//      File config.txt = new File(configPath);
-//      Path path = config.txt.toAbsolutePath();
         Path path = Paths.get(configPath);
         String[] deviceArray;
-        String s;
+        String line;
         String delimiter = ",";
-        String deviceName;
-        String deviceRoom;
-        int wattage;
-        String deviceActive;
-        SmartDevice device;
 
         try {
             InputStream input = new BufferedInputStream(Files.newInputStream(path));
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
             System.out.println();
-            s = reader.readLine();
-            while (s != null) {
-                deviceArray = s.split(delimiter);
-                deviceName = deviceArray[0];
-                deviceRoom = deviceArray[1];
-                if (!(roomNameList.contains(deviceRoom)))
-                    roomNameList.add(deviceRoom);
-                wattage = Integer.parseInt(deviceArray[2]);
-                deviceActive = deviceArray[3];
-                device = new SmartDevice(deviceName, deviceRoom, wattage, Boolean.parseBoolean(deviceActive));
-                deviceList.add(device);
-                s = reader.readLine();
+            line = reader.readLine();
+            while (line != null) {
+                if (line.contains("rules")) {
+                    line = reader.readLine();
+
+                } else {
+                    System.out.println("Not Empty");
+                    deviceArray = line.split(delimiter);
+                    String roomName = deviceArray[deviceArray.length - 1];
+                    Room room = new Room(roomName);
+                    roomList.add(room);
+                    for (int i = 0; i < deviceArray.length - 1; i++) {
+                        Device device = new Device(deviceArray[i]);
+                        room.addDevice(device);
+                    }
+                    line = reader.readLine();
+                }
             }
             reader.close();
         } catch (Exception e) {
@@ -70,28 +72,9 @@ public class HomeSimulator {
         }
     }
 
-    private void loadRooms() {
-        for (String room : roomNameList) {
-            roomList.add(new SimRoom(room));
-        }
-        for (SimRoom room : roomList) {
-            for (SmartDevice device : deviceList) {
-                if (room.getName().equals(device.getRoomName())) {
-                    room.addDevice(device);
-                }
-            }
-        }
-    }
-
-    public void displayRooms() {
-        for (SimRoom room : roomList) {
-            room.displayStatus();
-        }
-    }
-
     public void displayDevices() {
-        for (SmartDevice device : deviceList) {
-            device.displayStatus();
+        for (Room room : roomList) {
+            room.displayDevices();
         }
     }
 
@@ -106,6 +89,7 @@ public class HomeSimulator {
             System.out.printf("\nTemp: %.2f °C", temperature);
             System.out.printf("\nLight: %.2f %%" , sunlight);
             currentTime = String.format("\nTime: %d:%02d", hours, minutes);
+            updateRooms(currentTime, temperature, sunlight);
             System.out.println(currentTime);
             minutes++;
 

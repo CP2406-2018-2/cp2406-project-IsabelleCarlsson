@@ -18,6 +18,6 @@ Estimate: 4 hours
 
 Estimate 7 hours
 
-- A user needs an overall amount of sun light to track the sun light thorough the day (DONE)
+- A user needs an overall amount of sun light to track the sun light throughout the day (DONE)
 
 Estimate 7 hours

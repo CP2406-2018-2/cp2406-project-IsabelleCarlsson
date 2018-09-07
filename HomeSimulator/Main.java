@@ -2,51 +2,31 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        int state;
-        HomeSimulator home = new HomeSimulator("TestHouse", "res/config.txt.txt");
+        String state;
+        Home home = new Home("res/config.txt");
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome to the Smart Home Automation Simulator!");
         do {
-            System.out.println("[1] Start Simulator");
-            System.out.println("[2] Configuration");
+            System.out.println("\n[1] Run Simulator");
+            System.out.println("[2] List House Contents");
             System.out.println("[3] Quit");
             System.out.print("\nPlease, select your menu option: ");
-            state = scanner.nextInt();
+            state = scanner.nextLine();
 
             switch (state) {
-                case 1:
+                case "1":
                     home.start();
-                case 2:
-                    configMenu();
-                case 3:
+                    break;
+                case "2":
+                    home.displayDevices();
+                    break;
+                case "3":
+                    System.out.println("Quitting Application...");
                     break;
                 default:
                     System.out.println("The selection was invalid!");
+                    break;
             }
-        } while (state != 3);
-    }
-
-    private static void configMenu() {
-        int state;
-        Scanner scanner = new Scanner(System.in);
-        do {
-            System.out.println("[1] Configure Rooms");
-            System.out.println("[2] Configure Smart Devices");
-            System.out.println("[3] Exit");
-
-            System.out.print("\nPlease, select your menu option: ");
-            state = scanner.nextInt();
-
-            switch (state) {
-                case 1:
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                default:
-                    System.out.println("The selection was invalid!");
-            }
-        } while (state != 3);
+        } while (!(state.equals("3")));
     }
 }

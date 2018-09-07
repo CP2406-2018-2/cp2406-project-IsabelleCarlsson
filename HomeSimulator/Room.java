@@ -1,19 +1,32 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class SimRoom {
+public class Room {
     private String roomName;
     private boolean isActive;
-    private List<SmartDevice> deviceList = new ArrayList<>();
+    private String time;
+    private List<Device> deviceList = new ArrayList<>();
 
-    public SimRoom() {
+    public Room() {
         roomName = "room";
         isActive = false;
     }
 
-    public SimRoom(String roomName) {
+    public Room(String roomName) {
         this.roomName = roomName;
-        this.isActive = false;
+        isActive = false;
+    }
+
+    public void displayDevices(){
+        for (Device device: deviceList) {
+            device.displayStatus();
+        }
+    }
+
+    public void updateDevices(String time, double temperature, double sunlight){
+        for (Device device : deviceList) {
+            device.update(time, temperature, sunlight);
+        }
     }
 
     public String getName() {
@@ -32,31 +45,27 @@ public class SimRoom {
         System.out.println("Room: " + roomName + "\nUsage: " + getElectUsage() + "\nActive: " + isActive + "\n");
     }
 
-    public SmartDevice getDeviceByName(String deviceName) {
-        for (SmartDevice device : deviceList) {
+    public Device getDeviceByName(String deviceName) {
+        for (Device device : deviceList) {
             if (device.getName().toLowerCase().equals(deviceName.toLowerCase()))
                 return device;
         }
         return null;
     }
 
-    public void addDevice(SmartDevice device) {
+    public void addDevice(Device device) {
         deviceList.add(device);
     }
 
     public double getElectUsage() {
         double roomElectUsage = 0;
-        for (SmartDevice device : deviceList) {
+        for (Device device : deviceList) {
             roomElectUsage += device.getElectUsage();
         }
         return roomElectUsage;
     }
 
     public void toggleActive() {
-        if (isActive) {
-            this.isActive = false;
-        } else {
-            this.isActive = true;
-        }
+        this.isActive = (!isActive);
     }
 }
