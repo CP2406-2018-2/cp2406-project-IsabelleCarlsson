@@ -86,6 +86,6 @@ public class Device {
     }
 
     public void displayStatus() {
-        System.out.println("Device: " + name + "\nUsage: " + electUsage + "\nActive: " + isActive + "\n");
+        System.out.println("Device: " + name + "\nRoom: " + room + "\nUsage: " + electUsage + "\nActive: " + isActive);
     }
 }

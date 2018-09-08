@@ -13,4 +13,10 @@ public class Fixture extends Device {
     public int getWaterUsage() {
         return waterUsage;
     }
+
+    @Override
+    public void displayStatus() {
+        super.displayStatus();
+        System.out.print("Water Usage: " + getWaterUsage());
+    }
 }

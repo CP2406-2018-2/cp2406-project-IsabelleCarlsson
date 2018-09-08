@@ -22,6 +22,7 @@ public class Room {
     public void displayDevices(){
         for (Device device: deviceList) {
             device.displayStatus();
+            System.out.println("\n");
         }
     }
 
@@ -54,6 +55,18 @@ public class Room {
         this.sunlight = sunlight;
     }
 
+    public String getTime() {
+        return time;
+    }
+
+    public double getTemperature() {
+        return temperature;
+    }
+
+    public double getSunlight() {
+        return sunlight;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -63,15 +76,8 @@ public class Room {
     }
 
     public void displayStatus() {
-        System.out.println("Room: " + name + "\nUsage: " + getElectUsage() + "\nActive: " + isActive + "\n");
-    }
-
-    public Device getDeviceByName(String deviceName) {
-        for (Device device : deviceList) {
-            if (device.getName().toLowerCase().equals(deviceName.toLowerCase()))
-                return device;
-        }
-        return null;
+        System.out.println("Room: " + name + "\nTemperature: " + getTemperature() + "\nUsage: " + getElectUsage() +
+                "\nActive: " + isActive + "\n");
     }
 
     public void addDevice(Device device) {
@@ -79,11 +85,11 @@ public class Room {
     }
 
     public double getElectUsage() {
-        double roomElectUsage = 0;
+        double electUsage = 0;
         for (Device device : deviceList) {
-            roomElectUsage += device.getElectUsage();
+            electUsage += device.getElectUsage();
         }
-        return roomElectUsage;
+        return electUsage;
     }
 
     public void toggleActive() {

@@ -9,8 +9,8 @@ public class Home {
     private String configPath;
     private List<Room> roomList = new ArrayList<>();
 
-    private Home() {
-        configPath = "config.txt";
+    public Home() {
+        configPath = "res/config.txt";
         loadConfig();
     }
 
@@ -19,21 +19,13 @@ public class Home {
         loadConfig();
     }
 
-    public Room getRoomByName(String roomName) {
-        for (Room room : roomList) {
-            if (room.getName().toLowerCase().equals(roomName.toLowerCase()))
-                return room;
-        }
-        return null;
-    }
-
-    public void updateRooms(String time, double temperature, double sunlight) {
+    private void updateRooms(String time, double temperature, double sunlight) {
         for (Room room : roomList) {
             room.updateEnvironVars(time, temperature, sunlight);
         }
     }
 
-    public void updateDevices(String time, double temperature, double sunlight) {
+    private void updateDevices(String time, double temperature, double sunlight) {
         for (Room room : roomList) {
             room.updateDevices(time, temperature, sunlight);
         }
@@ -52,14 +44,12 @@ public class Home {
             line = reader.readLine();
             while (line != null) {
                 if (line.contains("room rules")) {
-                    line = reader.readLine();
                     while (line != null) {
-
+                        line = reader.readLine();
                     }
                 } else if (line.contains("device rules")) {
-                    line = reader.readLine();
                     while (line != null) {
-
+                        line = reader.readLine();
                     }
                 } else {
                     deviceArray = line.split(delimiter);
@@ -68,6 +58,7 @@ public class Home {
                     roomList.add(room);
                     for (int i = 0; i < deviceArray.length - 1; i++) {
                         Device device = new Device(deviceArray[i]);
+                        device.setRoomName(roomName);
                         room.addDevice(device);
                     }
                     line = reader.readLine();
@@ -82,6 +73,13 @@ public class Home {
     public void displayDevices() {
         for (Room room : roomList) {
             room.displayDevices();
+        }
+    }
+
+    public void displayRooms() {
+        for (Room room : roomList) {
+            room.displayStatus();
+            System.out.print("\n");
         }
     }
 
