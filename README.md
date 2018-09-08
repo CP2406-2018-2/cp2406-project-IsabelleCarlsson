@@ -17,9 +17,9 @@ Consider using this readme to record and track your progress through the semeste
 
 7. ~~Complete loadConfig method to Home~~ (DONE)
 
-8. ~~- A user needs a clock to view the time of a simulated day~~ (DONE)
+8. ~~Complete time, temperature and sunlight variables~~ (DONE)
 
-9. ~~Complete start the simulator through the menu option~~ (DONE)
+9. ~~Complete run the simulator through the menu option~~ (DONE)
 
-10. Menu system to be able to view the status of devices (TODO)
+10. ~~Complete menu option to be able to view the status of devices~~ (DONE)
 
