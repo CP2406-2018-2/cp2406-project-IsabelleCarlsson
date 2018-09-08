@@ -19,10 +19,9 @@ public class Room {
         isActive = false;
     }
 
-    public void displayDevices(){
-        for (Device device: deviceList) {
+    public void displayDevices() {
+        for (Device device : deviceList) {
             device.displayStatus();
-            System.out.println("\n");
         }
     }
 
@@ -33,7 +32,7 @@ public class Room {
         setSunlight(sunlight);
     }
 
-    public void updateDevices(String time, double temperature, double sunlight){
+    public void updateDevices(String time, double temperature, double sunlight) {
         for (Device device : deviceList) {
             device.updateEnvironVars(time, temperature, sunlight);
         }

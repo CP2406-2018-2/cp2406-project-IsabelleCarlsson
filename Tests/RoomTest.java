@@ -1,7 +1,7 @@
 public class RoomTest {
     public static void main(String[] args) {
         Room room = new Room("Bedroom");
-        room.getElectUsage();
+        System.out.println("Electric Usage: " + room.getElectUsage());
         Device device = new Device("Lamp");
         room.addDevice(device);
         room.displayDevices();

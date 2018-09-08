@@ -79,7 +79,6 @@ public class Home {
     public void displayRooms() {
         for (Room room : roomList) {
             room.displayStatus();
-            System.out.print("\n");
         }
     }
 
@@ -91,30 +90,27 @@ public class Home {
         int minutes = 0;
         String currentTime;
 
-        while (hourCount <= 23){
+        while (hourCount <= 23) {
             System.out.printf("\nTemp: %.2f °C", temperature);
-            System.out.printf("\nLight: %.2f %%" , sunlight);
+            System.out.printf("\nLight: %.2f %%", sunlight);
             currentTime = String.format("\nTime: %d:%02d", hours, minutes);
             updateRooms(currentTime, temperature, sunlight);
             updateDevices(currentTime, temperature, sunlight);
             System.out.println(currentTime);
             minutes++;
 
-            // Changes temperature variable
             if (hourCount < 7) {
-                temperature+= 0.03;
+                temperature += 0.03;
             } else if (hourCount > 7) {
-                temperature-= 0.0131;
+                temperature -= 0.0131;
             }
 
-            // Changes sunlight variable
-            if (hourCount == 0){
+            if (hourCount == 0) {
                 sunlight += 1.6666666666666666666666666666667;
             } else if (hourCount == 12) {
                 sunlight -= 1.6666666666666666666666666666667;
             }
 
-            // Changes time variable
             if (hours > 23) {
                 hours = 0;
             }
@@ -124,7 +120,6 @@ public class Home {
                 hourCount++;
             }
 
-            // Pauses thread for set time
             try {
                 Thread.sleep(1000);
             } catch (Exception e) {

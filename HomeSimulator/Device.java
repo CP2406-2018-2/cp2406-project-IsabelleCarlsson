@@ -82,10 +82,10 @@ public class Device {
 
     public void toggleActive() {
         this.isActive = (!isActive);
-
     }
 
     public void displayStatus() {
-        System.out.println("Device: " + name + "\nRoom: " + room + "\nUsage: " + electUsage + "\nActive: " + isActive);
+        System.out.println("Device: " + name + "\nRoom: " + room + "\nUsage: " + electUsage + "\nActive: " + isActive +
+                "\n");
     }
 }
