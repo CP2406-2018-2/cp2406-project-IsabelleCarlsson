@@ -1,20 +1,20 @@
 # User Stories
 
-- A user need to be notified when a device change occurs so that they know what changes are made to it (TODO)
-
-Estimate: 40 minutes
-
-- A user needs the program save configuration information to a text file so that they can define rules for it (TODO)
-
-Estimate: 2 hours
-
-- A user needs to be able to set the simulator time tick rate (TODO)
-
-Estimate: 1 hour
-
-- A user needs to be able to write triggering events in the text file that can be read by the program (TODO)
+- A user needs the program to visualise the home simulator so that the user can see the devices and rooms (TODO)
 
 Estimate: 5 hours
+
+- A user needs a information window so that they can view statistics about the simulator (TODO)
+
+Estimate: 7 hours
+
+- A user needs a status bar to be notified when errors in the program occur (TODO)
+
+Estimate: 9 hours
+
+- A user needs a GUI menu system so that they can navigate the program (BUGGY)
+
+Estimate: 2 hours
 
 ### Completed
 

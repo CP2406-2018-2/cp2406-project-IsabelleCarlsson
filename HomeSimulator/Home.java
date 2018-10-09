@@ -8,6 +8,9 @@ import java.util.List;
 public class Home {
     private String configPath;
     private List<Room> roomList = new ArrayList<>();
+    protected String time;
+    protected double temperature;
+    protected double sunlight;
 
     public Home() {
         configPath = "res/config.txt";
@@ -31,7 +34,19 @@ public class Home {
         }
     }
 
-    private void loadConfig() {
+    public String getTime() {
+        return time;
+    }
+
+    public double getSunlight() {
+        return sunlight;
+    }
+
+    public double getTemperature() {
+        return temperature;
+    }
+
+    public void loadConfig() {
         Path path = Paths.get(configPath);
         String[] deviceArray;
         String line;
@@ -83,20 +98,17 @@ public class Home {
     }
 
     public void start() {
-        double temperature = 18;
-        double sunlight = 0;
+        temperature = 18;
+        sunlight = 0;
         int hourCount = 0;
         int hours = 5;
         int minutes = 0;
-        String currentTime;
 
+        // Environmental variables
         while (hourCount <= 23) {
-            System.out.printf("\nTemp: %.2f °C", temperature);
-            System.out.printf("\nLight: %.2f %%", sunlight);
-            currentTime = String.format("\nTime: %d:%02d", hours, minutes);
-            updateRooms(currentTime, temperature, sunlight);
-            updateDevices(currentTime, temperature, sunlight);
-            System.out.println(currentTime);
+            time = String.format("\nTime: %d:%02d", hours, minutes);
+            updateRooms(time, temperature, sunlight);
+            updateDevices(time, temperature, sunlight);
             minutes++;
 
             if (hourCount < 7) {
@@ -121,7 +133,7 @@ public class Home {
             }
 
             try {
-                Thread.sleep(1000);
+                Thread.sleep(1);
             } catch (Exception e) {
                 System.out.println("Exception " + e);
             }

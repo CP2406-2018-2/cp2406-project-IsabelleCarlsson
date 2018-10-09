@@ -1,8 +1,8 @@
 # Spike User Stories
 
-- A user needs random triggering events so that the simulator can demonstrate changes in behaviour (TODO)
+- A user needs the triggering events to be read from the config file so that the user can define them (TODO)
 
-Estimate: 6 hours
+Estimate: 10 hours
 
 ### Completed
 
