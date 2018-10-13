@@ -8,13 +8,17 @@ Estimate: 5 hours
 
 Estimate: 7 hours
 
-- A user needs a status bar to be notified when errors in the program occur (TODO)
+- A user needs a status bar so that they can be notified when errors in the program occur (BUGGY)
 
 Estimate: 9 hours
+
+Note: Need to catch error and send to the status label
 
 - A user needs a GUI menu system so that they can navigate the program (BUGGY)
 
 Estimate: 2 hours
+
+Note: Need action when pressing info, about or guide menu option
 
 ### Completed
 
@@ -30,7 +34,7 @@ Estimate: 1 hour
 
 Estimate: 3 hours
 
-- A user needs a menu system to be able to view the status of devices (DONE)
+- A user needs a menu system so that they are able to view the status of devices (DONE)
 
 Estimate: 1 hour
 
