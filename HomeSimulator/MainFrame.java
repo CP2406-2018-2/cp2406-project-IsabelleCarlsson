@@ -1,7 +1,8 @@
-import java.awt.BorderLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -12,12 +13,18 @@ public class MainFrame extends JFrame implements ActionListener {
     JMenu menu3 = new JMenu("Help");
     JMenuItem load = new JMenuItem("Load Configuration");
     JMenuItem exit = new JMenuItem("Exit Program");
-    JMenuItem info = new JMenuItem("Show/Hide Information");
+    JMenuItem info = new JMenuItem("Hide Information");
     JMenuItem run = new JMenuItem("Run");
     JMenuItem pause = new JMenuItem("Pause");
     JMenuItem stop = new JMenuItem("Stop");
     JMenuItem about = new JMenuItem("About");
     JMenuItem guide = new JMenuItem("User Guide");
+
+    JPanel mainDisplay = new JPanel();
+    JPanel infoPane = new JPanel();
+    JPanel graphicsPane = new JPanel();
+    JPanel simView;
+
     JLabel status = new JLabel();
 
     private Timer timer;
@@ -28,8 +35,63 @@ public class MainFrame extends JFrame implements ActionListener {
         setTitle("Smart Home Automation Simulator");
         setSize(500, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // setLocationRelativeTo(null);
+
+        setVisible(true);
         setLayout(new BorderLayout());
+
         home = new Home();
+
+        Border eBorder = BorderFactory.createEtchedBorder();
+
+        // gridBagConstraints
+        GridBagConstraints gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = gridBagConstraints.gridheight = 1;
+        gridBagConstraints.insets = new Insets(2, 2, 2, 2);
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = gridBagConstraints.weighty = 100;
+
+        // infoOutput
+        infoOutput = new JTextArea(20, 50);
+        infoOutput.setEditable(false);
+        infoOutput.setVisible(true);
+
+        // infoPane
+        infoPane.setBorder(BorderFactory.createTitledBorder(eBorder, "Information"));
+        infoPane.add(new JScrollPane(infoOutput));
+
+        // simView
+        simView = new SimView(home);
+        simView.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+
+        // graphicsPane
+        graphicsPane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 20));
+        graphicsPane.setBorder(BorderFactory.createTitledBorder(eBorder, ""));
+        graphicsPane.add(simView);
+
+        // mainDisplay
+        mainDisplay.setLayout(new GridBagLayout());
+        mainDisplay.add(infoPane, gridBagConstraints);
+        mainDisplay.add(graphicsPane, gridBagConstraints);
+        mainDisplay.add(infoPane);
+
+        add(mainDisplay);
+        add(status, BorderLayout.SOUTH);
+
+        // Add actionListeners to menu items
+        load.addActionListener(this);
+        exit.addActionListener(this);
+        info.addActionListener(this);
+        run.addActionListener(this);
+        pause.addActionListener(this);
+        stop.addActionListener(this);
+        about.addActionListener(this);
+        guide.addActionListener(this);
+
+        // Add menu items
         setJMenuBar(menuBar);
         menuBar.add(menu1);
         menuBar.add(menu2);
@@ -43,27 +105,16 @@ public class MainFrame extends JFrame implements ActionListener {
         menu3.add(about);
         menu3.add(guide);
 
-        load.addActionListener(this);
-        exit.addActionListener(this);
-        info.addActionListener(this);
-        run.addActionListener(this);
-        pause.addActionListener(this);
-        stop.addActionListener(this);
-        about.addActionListener(this);
-        guide.addActionListener(this);
-
-        infoOutput = new JTextArea(20, 50);
-        infoOutput.setEditable(false);
-        infoOutput.setVisible(true);
-        add(status, BorderLayout.SOUTH);
+        // Disable pause and stop on initialisation
         pause.setEnabled(false);
         stop.setEnabled(false);
+
+        // Test status label
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         LocalDateTime now = LocalDateTime.now();
         status.setText("Program Load Success: " + dtf.format(now));
-        add(new JScrollPane(infoOutput), BorderLayout.CENTER);
 
-        // Create a timer object that displays info
+        // Create a timer object for infoOutput
         timer = new Timer(1000, evt -> {
             String s = home.getTime();
             if (s != null) {
@@ -79,6 +130,7 @@ public class MainFrame extends JFrame implements ActionListener {
                 timer.stop();
             }
         });
+        pack();
     }
 
     @Override
@@ -105,13 +157,19 @@ public class MainFrame extends JFrame implements ActionListener {
             stop.setEnabled(false);
             home.stop();
             timer.stop();
+        } else if (source == info) {
+            if (infoPane.isVisible()) {
+                infoPane.setVisible(false);
+                info.setText("Show Information");
+            } else {
+                infoPane.setVisible(true);
+                info.setText("Hide Information");
+            }
         }
+        repaint();
     }
 
     public static void main(String[] args) {
-        JFrame frame = new MainFrame();
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-        frame.pack();
+        new MainFrame();
     }
 }

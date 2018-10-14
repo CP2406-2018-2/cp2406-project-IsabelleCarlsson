@@ -1,5 +1,7 @@
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Room {
     private String name;
@@ -8,15 +10,29 @@ public class Room {
     private double temperature;
     private double sunlight;
     private List<Device> deviceList = new ArrayList<>();
+    private double electUsage;
+
+    int size;
+    int red = random.nextInt(256);
+    int green = random.nextInt(256);
+    int blue = random.nextInt(256);
+    private Color color = new Color(red, green, blue);
+    private static Random random = new Random();
 
     public Room() {
         name = "room";
         isActive = false;
+        size = 50;
     }
 
     public Room(String name) {
         this.name = name;
         isActive = false;
+        size = 50;
+    }
+
+    public Color getColor() {
+        return color;
     }
 
     public void displayDevices() {
@@ -84,7 +100,6 @@ public class Room {
     }
 
     public double getElectUsage() {
-        double electUsage = 0;
         for (Device device : deviceList) {
             electUsage += device.getElectUsage();
         }
