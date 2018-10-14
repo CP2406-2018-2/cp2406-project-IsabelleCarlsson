@@ -1,25 +1,26 @@
-# Home Automation Simulator
-This is the starting point for the CP2406 project codebase.
-Consider using this readme to record and track your progress through the semester
+# Smart Home Automation Simulator
 
-# Task plan
-1. ~~Review project brief~~ (DONE)
+##About
 
-2. ~~Establish initial version of the user stories~~ (DONE)
+The Smart Home Automation Simulator is a smart home simulator that consist of a Java GUI visualising devices and rooms 
+in a smart home along with information about these devices and triggering events that can be configured from a text 
+file.
 
-3. ~~Establish initial version of the spikes~~ (DONE)
+##Guide
+- File
+    - Load Configuration _(Loads configuration file found at "/res/config.txt")_
+    - Exit Program _(Exits program)_
+    
+- Simulation
+    - Hide/Show Information _(Toggles the information panel)_
+    - Run _(Starts simulation)_
+    - Pause _(Pauses simulation)_
+    - Stop _(Stops simulation)_
+- Help
+    - About _(Links to about)_
+    - User Guide _(Links to user guide)_
 
-4. ~~Establish initial version of UML~~ (DONE)
+## Disclaimer 
 
-5. ~~Complete navigation menu of simulator~~ (DONE)
-
-6. ~~Complete Home, Room & Device classes~~ (DONE)
-
-7. ~~Complete loadConfig method to Home~~ (DONE)
-
-8. ~~Complete time, temperature and sunlight variables~~ (DONE)
-
-9. ~~Complete run the simulator through the menu option~~ (DONE)
-
-10. ~~Complete menu option to be able to view the status of devices~~ (DONE)
+######_Created for assignment purposes for CP2406 at James Cook University_
 

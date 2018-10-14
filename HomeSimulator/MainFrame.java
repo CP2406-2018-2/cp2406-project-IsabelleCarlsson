@@ -5,6 +5,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.net.*;
 
 public class MainFrame extends JFrame implements ActionListener {
     JMenuBar menuBar = new JMenuBar();
@@ -164,6 +165,19 @@ public class MainFrame extends JFrame implements ActionListener {
             } else {
                 infoPane.setVisible(true);
                 info.setText("Hide Information");
+            }
+        } else if (source == about) {
+            try {
+                Desktop.getDesktop().browse(new URL("https://github.com/CP2406-2018-2/cp2406-project-" +
+                        "IsabelleCarlsson/blob/master/README.md").toURI());
+            } catch (Exception exception) {
+                status.setText(String.format("Error: %s", exception));
+            }
+        } else if (source == guide) {
+            try {
+                Desktop.getDesktop().browse(new URL("http://www.google.com").toURI());
+            } catch (Exception exception) {
+                status.setText(String.format("Error: %s", exception));
             }
         }
         repaint();

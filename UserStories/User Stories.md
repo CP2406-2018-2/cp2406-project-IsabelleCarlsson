@@ -4,12 +4,6 @@
 
 Estimate: 1 hour
 
-- A user needs a GUI menu system so that they can navigate the program (BUGGY)
-
-Estimate: 2 hours
-
-Note: Need action when pressing info, about or guide menu option
-
 - A user needs the program to visualise the home simulator so that the user can see the devices and rooms (BUGGY)
 
 Estimate: 5 hours
@@ -23,6 +17,10 @@ Estimate: 7 hours
 Note: Make a JFrame
 
 ### Completed
+
+- A user needs a GUI menu system so that they can navigate the program (DONE)
+
+Estimate: 2 hours
 
 - A user needs a status bar so that they can be notified when errors in the program occur (DONE)
 
