@@ -12,17 +12,38 @@ public class SimView extends JPanel {
 
     @Override
     protected void paintComponent(Graphics graphics) {
-        int x = 0;
-        int y = 0;
+        int roomX = 0;
+        int roomY = 0;
+        int deviceX = 0;
+        int deviceY = 0;
+
+        // Draw rooms
         for (Room room : home.getRoomList()) {
-            int width = getWidth();
-            if (getWidth() <= x+room.size) {
-                y += room.size;
-                x = 0;
+            if (getWidth() <= roomX + room.getSize()) {
+                roomY += room.getSize();
+                roomX = 0;
             }
             graphics.setColor(room.getColor());
-            graphics.fillRect(x, y, room.size, room.size);
-            x += room.size;
+            graphics.fillRect(roomX, roomY, room.getSize(), room.getSize());
+
+            // Draw devices
+            deviceX = roomX;
+            deviceY = roomY;
+            for (Device device : room.getDeviceList()) {
+                if (room.getSize() <= deviceX+device.getSize()) {
+                    deviceY += device.getSize();
+                    deviceX = 0;
+                }
+                graphics.setColor(device.getColor());
+                graphics.fillRect(deviceX + 2, deviceY + 2, device.getSize(), device.getSize());
+                deviceX += device.getSize();
+            }
+
+            // Label rooms
+            graphics.setFont(new Font("Calibri", Font.PLAIN, 18));
+            graphics.setColor(Color.WHITE);
+            graphics.drawString(room.getName(), roomX + 10, roomY + 20);
+            roomX += room.getSize();
         }
     }
 }

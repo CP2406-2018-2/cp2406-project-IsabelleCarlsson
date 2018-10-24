@@ -114,12 +114,12 @@ public class MainFrame extends JFrame implements ActionListener {
         // Test status label
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         LocalDateTime now = LocalDateTime.now();
-        status.setText("Program Load Success: " + dtf.format(now));
+        status.setText("Program Loaded Successfully: " + dtf.format(now));
 
         // Create a timer object for infoOutput
         timer = new Timer(1000, evt -> {
-            infoOutput.setText(String.format("\n%s\nTemp: %.2f°C\nLight: %.2f%%", home.getTime(),
-                    home.getTemperature(), home.getSunlight()));
+            infoOutput.setText(String.format("\nTime: %s\nTemp: %.2f°C\nLight: %.2f%%\nUsage: %s", home.getTime(),
+                    home.getTemperature(), home.getSunlight(), home.getElectUsage()));
 
             if (home.isDone()) {
                 run.setEnabled(true);
@@ -138,23 +138,35 @@ public class MainFrame extends JFrame implements ActionListener {
             System.exit(0);
         } else if (source == load) {
             home.loadConfig();
+            if (home.getErrorMessage().isEmpty()) {
+                status.setText("Config Loaded Successfully");
+            } else {
+                status.setText(home.getErrorMessage());
+            }
         } else if (source == run) {
-            run.setEnabled(false);
-            pause.setEnabled(true);
-            stop.setEnabled(true);
-            home.run();
-            timer.start();
+            if (home.isConfigLoaded()) {
+                run.setEnabled(false);
+                pause.setEnabled(true);
+                stop.setEnabled(true);
+                home.run();
+                timer.start();
+                status.setText("Simulation Running");
+            } else {
+                status.setText("Error: Loaded Config Needed");
+            }
         } else if (source == pause) {
             run.setEnabled(true);
             pause.setEnabled(false);
             home.pause();
             timer.stop();
+            status.setText("Simulation Paused");
         } else if (source == stop) {
             run.setEnabled(true);
             pause.setEnabled(false);
             stop.setEnabled(false);
             home.stop();
             timer.stop();
+            status.setText("Simulation Stopped");
         } else if (source == info) {
             if (infoPane.isVisible()) {
                 infoPane.setVisible(false);
@@ -174,7 +186,6 @@ public class MainFrame extends JFrame implements ActionListener {
                 status.setText(String.format("Error: %s", exception));
             }
         }
-        status.setText(home.getErrorMessage());
         repaint();
     }
 

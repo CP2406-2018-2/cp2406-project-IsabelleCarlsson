@@ -6,13 +6,11 @@ Estimate: 5 hours
 
 Note: Missing devices
 
-- A user needs a information panel so that they can view statistics about the simulator (BUGGY)
+### Completed
+
+- A user needs a information panel so that they can view statistics about the simulator (DONE)
 
 Estimate: 7 hours
-
-Note: 
-
-### Completed
 
 - A user need to the status bar to catch error and send to the status label so that they can be notified when errors 
 occur in the program (DONE)
@@ -20,7 +18,7 @@ occur in the program (DONE)
 Estimate: 1 hour
 
 - A user needs the about menu option to show a dialog so that they can see programmers name and the version number
- (Done)
+ (DONE)
  
  Estimate: 10 minutes
 

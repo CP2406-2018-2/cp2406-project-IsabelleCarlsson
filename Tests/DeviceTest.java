@@ -1,6 +1,6 @@
 public class DeviceTest {
     public static void main(String[] args) {
-        Device device = new Device("Coffee Machine", "Kitchen", true);
+        Device device = new Device("Coffee Machine", "Kitchen", true, 100);
         System.out.println("Device: " + device.getName());
         device.setName("Microwave");
         System.out.println("Device: " + device.getName());

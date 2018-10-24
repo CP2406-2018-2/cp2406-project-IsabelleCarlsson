@@ -24,13 +24,16 @@ public class Home {
     private double temperature;
     private double sunlight;
     private String errorMessage = "";
+    private boolean isConfigLoaded;
+    private int electUsage;
 
     public Home() {
+        isConfigLoaded = false;
     }
 
     private void updateRooms(String time, double temperature, double sunlight) {
         for (Room room : roomList) {
-            room.updateEnvironVars(time, temperature, sunlight);
+            room.updateRoom(time, temperature, sunlight);
         }
     }
 
@@ -80,29 +83,30 @@ public class Home {
             reader.readLine(); // skip first line in csv file
             line = reader.readLine();
             while (line != null) {
-                deviceArray = line.split(delimiter, 10);
+                deviceArray = line.split(delimiter, 11);
                 String roomName = deviceArray[0];
-                Device device = new Device(deviceArray[1], roomName, Boolean.parseBoolean(deviceArray[2]));
+                Device device = new Device(deviceArray[1], roomName, Boolean.parseBoolean(deviceArray[2]),
+                        Integer.parseInt(deviceArray[3]));
                 Room newRoom = new Room(roomName);
 
                 // Set device control conditions
-                if (!(deviceArray[3].isEmpty())) {
+                if (!(deviceArray[4].isEmpty())) {
                     device.setTimeControlled(true);
-                    device.setOnCondition(deviceArray[8]);
-                    device.setOffCondition(deviceArray[9]);
-                } else if (!(deviceArray[4].isEmpty())) {
-                    device.setTempControlled(true);
-                    device.setOnCondition(deviceArray[8]);
-                    device.setOffCondition(deviceArray[9]);
+                    device.setOnCondition(deviceArray[9]);
+                    device.setOffCondition(deviceArray[10]);
                 } else if (!(deviceArray[5].isEmpty())) {
-                    device.setLightControlled(true);
-                    device.setOnCondition(deviceArray[8]);
-                    device.setOffCondition(deviceArray[0]);
+                    device.setTempControlled(true);
+                    device.setOnCondition(deviceArray[9]);
+                    device.setOffCondition(deviceArray[10]);
                 } else if (!(deviceArray[6].isEmpty())) {
+                    device.setLightControlled(true);
+                    device.setOnCondition(deviceArray[9]);
+                    device.setOffCondition(deviceArray[10]);
+                } else if (!(deviceArray[7].isEmpty())) {
                     device.setMotionControlled(true);
-                    device.setMotionSensor(deviceArray[7]);
-                    device.setOnCondition(deviceArray[8]);
-                    device.setOffCondition(deviceArray[9]);
+                    device.setMotionSensor(deviceArray[8]);
+                    device.setOnCondition(deviceArray[9]);
+                    device.setOffCondition(deviceArray[10]);
                 }
 
                 if (getRoomByName(roomName) == null) {
@@ -115,8 +119,9 @@ public class Home {
                 line = reader.readLine();
             }
             reader.close();
+            isConfigLoaded = true;
         } catch (Exception e) {
-            errorMessage = "Error: " + e;
+            errorMessage = "Error: Invalid Config File";
         }
     }
 
@@ -131,7 +136,7 @@ public class Home {
             hourCount = 0;
             temperature = 18;
             sunlight = 0;
-            time = String.format("Time: %d:%02d", hours, minutes);
+            time = String.format("%d:%02d", hours, minutes);
             final SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
                 @Override
                 protected Void doInBackground() {
@@ -170,9 +175,10 @@ public class Home {
                                     stop();
                                 }
 
-                                time = String.format("Time: %d:%02d", hours, minutes);
+                                time = String.format("%d:%02d", hours, minutes);
                                 updateRooms(time, temperature, sunlight);
                                 updateDevices(time, temperature, sunlight);
+                                calcElectUsage();
                             } catch (Exception e) {
                                 errorMessage = "Error: " + e;
                             }
@@ -202,5 +208,20 @@ public class Home {
 
     public String getErrorMessage() {
         return errorMessage;
+    }
+
+    public void calcElectUsage() {
+        electUsage = 0;
+        for (Room room : roomList) {
+            electUsage += room.getElectUsage();
+        }
+    }
+
+    public int getElectUsage() {
+        return electUsage;
+    }
+
+    public boolean isConfigLoaded() {
+        return isConfigLoaded;
     }
 }

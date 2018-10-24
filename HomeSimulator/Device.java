@@ -1,8 +1,11 @@
+import java.awt.*;
+import java.util.Random;
+
 public class Device {
     private String name;
     private int electUsage;
     private boolean isActive;
-    protected String room;
+    private String roomName;
     private String time;
     private double temperature;
     private double sunlight;
@@ -14,12 +17,18 @@ public class Device {
     private String onCondition;
     private String offCondition;
     private boolean isFixture;
+    private int size;
+    private int red = random.nextInt(256);
+    private int green = random.nextInt(256);
+    private int blue = random.nextInt(256);
+    private Color color = new Color(red, green, blue);
+    private static Random random = new Random();
 
-    public Device(String name, String room, boolean isFixture) {
+    public Device(String name, String roomName, boolean isFixture, int electUsage) {
         this.name = name;
-        electUsage = 1;
+        this.electUsage = electUsage;
         isActive = false;
-        this.room = room;
+        this.roomName = roomName;
         timeControlled = false;
         tempControlled = false;
         lightControlled = false;
@@ -28,6 +37,15 @@ public class Device {
         onCondition = null;
         offCondition = null;
         this.isFixture = isFixture;
+        size = 40;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public int getSize() {
+        return size;
     }
 
     public void setTimeControlled(boolean timeControlled) {
@@ -59,7 +77,7 @@ public class Device {
     }
 
     public void update(String time, double temperature, double sunlight) {
-        // Updates environmental variables & control conditions
+        // Updates environmental variables & triggering conditions
         setTime(time);
         setTemperature(temperature);
         setSunlight(sunlight);
@@ -105,11 +123,11 @@ public class Device {
     }
 
     public String getRoomName() {
-        return room;
+        return roomName;
     }
 
     public void setRoomName(String room) {
-        this.room = room;
+        this.roomName = room;
     }
 
     public int getElectUsage() {
@@ -145,7 +163,7 @@ public class Device {
     }
 
     public void displayStatus() {
-        System.out.println("Device: " + name + "\nRoom: " + room + "\nFixture: " + isFixture + "\nUsage: " + electUsage
+        System.out.println("Device: " + name + "\nRoom: " + roomName + "\nFixture: " + isFixture + "\nUsage: " + electUsage
                 + "\nActive: " + isActive + "\n");
     }
 

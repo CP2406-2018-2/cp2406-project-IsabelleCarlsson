@@ -11,19 +11,12 @@ public class Room {
     private double sunlight;
     private List<Device> deviceList = new ArrayList<>();
     private double electUsage;
-
-    int size;
-    int red = random.nextInt(256);
-    int green = random.nextInt(256);
-    int blue = random.nextInt(256);
+    private int size;
+    private int red = random.nextInt(256);
+    private int green = random.nextInt(256);
+    private int blue = random.nextInt(256);
     private Color color = new Color(red, green, blue);
     private static Random random = new Random();
-
-    public Room() {
-        name = "room";
-        isActive = false;
-        size = 160;
-    }
 
     public Room(String name) {
         this.name = name;
@@ -31,8 +24,16 @@ public class Room {
         size = 160;
     }
 
+    public List<Device> getDeviceList() {
+        return deviceList;
+    }
+
     public Color getColor() {
         return color;
+    }
+
+    public int getSize() {
+        return size;
     }
 
     public void displayDevices() {
@@ -41,11 +42,12 @@ public class Room {
         }
     }
 
-    public void updateEnvironVars(String time, double temperature, double sunlight) {
-        // Updates environmental variables
+    public void updateRoom(String time, double temperature, double sunlight) {
+        // Updates environmental variables and electricity usage
         setTime(time);
         setTemperature(temperature);
         setSunlight(sunlight);
+        calcElectUsage();
     }
 
     public void updateDevices(String time, double temperature, double sunlight) {
@@ -99,10 +101,16 @@ public class Room {
         deviceList.add(device);
     }
 
-    public double getElectUsage() {
+    public void calcElectUsage() {
+        electUsage = 0;
         for (Device device : deviceList) {
-            electUsage += device.getElectUsage();
+            if (device.isActive()) {
+                electUsage += device.getElectUsage();
+            }
         }
+    }
+
+    public double getElectUsage() {
         return electUsage;
     }
 

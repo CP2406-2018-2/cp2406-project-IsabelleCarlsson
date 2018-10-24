@@ -6,7 +6,7 @@ Estimate: 3 hours
 
 ### Completed
 
-- A user needs a way to make device belong to a room (DONE)
+- A user needs a way to make device belong to a roomName (DONE)
 
 Estimate: 3 hours
 
