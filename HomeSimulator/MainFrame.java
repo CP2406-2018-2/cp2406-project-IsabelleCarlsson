@@ -56,7 +56,8 @@ public class MainFrame extends JFrame implements ActionListener {
         gridBagConstraints.weightx = gridBagConstraints.weighty = 100;
 
         // infoOutput
-        infoOutput = new JTextArea(20, 50);
+        infoOutput = new JTextArea(10, 29);
+        infoOutput.setFont(new Font("Calibri", Font.PLAIN, 24));
         infoOutput.setEditable(false);
         infoOutput.setVisible(true);
 
@@ -117,12 +118,8 @@ public class MainFrame extends JFrame implements ActionListener {
 
         // Create a timer object for infoOutput
         timer = new Timer(1000, evt -> {
-            String s = home.getTime();
-            if (s != null) {
-                infoOutput.append(s + String.format("\nTemp: %.2f°C\nLight: %.2f%%\n", home.getTemperature(),
-                        home.getSunlight()));
-                infoOutput.setCaretPosition(infoOutput.getDocument().getLength());
-            }
+            infoOutput.setText(String.format("\n%s\nTemp: %.2f°C\nLight: %.2f%%", home.getTime(),
+                    home.getTemperature(), home.getSunlight()));
 
             if (home.isDone()) {
                 run.setEnabled(true);
@@ -177,6 +174,7 @@ public class MainFrame extends JFrame implements ActionListener {
                 status.setText(String.format("Error: %s", exception));
             }
         }
+        status.setText(home.getErrorMessage());
         repaint();
     }
 

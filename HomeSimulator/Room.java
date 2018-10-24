@@ -22,13 +22,13 @@ public class Room {
     public Room() {
         name = "room";
         isActive = false;
-        size = 50;
+        size = 160;
     }
 
     public Room(String name) {
         this.name = name;
         isActive = false;
-        size = 50;
+        size = 160;
     }
 
     public Color getColor() {

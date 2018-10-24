@@ -1,12 +1,12 @@
 # Smart Home Automation Simulator
 
-##About
+## About
 
-The Smart Home Automation Simulator is a smart home simulator that consist of a Java GUI visualising devices and rooms 
-in a smart home along with information about these devices and triggering events that can be configured from a text 
-file.
+The Smart Home Automation Simulator is a Java GUI visualising a smart home simulator that consists of a devices 
+and rooms in a home. The program displays information about the simulation while it's running and can configure control
+conditions from a .csv file located at /res/config.csv. 
 
-##Guide
+## Guide
 - File
     - Load Configuration _(Loads configuration file found at "/res/config.txt")_
     - Exit Program _(Exits program)_

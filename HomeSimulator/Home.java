@@ -12,7 +12,7 @@ import javax.swing.SwingWorker;
 
 public class Home {
     private final int RUNNING_TIME = 24; // Running time in simulated hours
-    private static final String CONFIG_PATH = "res/config.csv";
+    private static final String CONFIG_PATH = "res/cofig.csv";
     private AtomicBoolean isStarted = new AtomicBoolean(false);
     private AtomicBoolean isRunning = new AtomicBoolean(false);
     private AtomicBoolean isDone = new AtomicBoolean(false);
@@ -23,6 +23,7 @@ public class Home {
     private String time;
     private double temperature;
     private double sunlight;
+    private String errorMessage = "";
 
     public Home() {
     }
@@ -115,7 +116,7 @@ public class Home {
             }
             reader.close();
         } catch (Exception e) {
-            System.out.println("Message: " + e);
+            errorMessage = "Error: " + e;
         }
     }
 
@@ -130,6 +131,7 @@ public class Home {
             hourCount = 0;
             temperature = 18;
             sunlight = 0;
+            time = String.format("Time: %d:%02d", hours, minutes);
             final SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
                 @Override
                 protected Void doInBackground() {
@@ -168,11 +170,11 @@ public class Home {
                                     stop();
                                 }
 
-                                time = String.format("\nTime: %d:%02d", hours, minutes);
+                                time = String.format("Time: %d:%02d", hours, minutes);
                                 updateRooms(time, temperature, sunlight);
                                 updateDevices(time, temperature, sunlight);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
+                            } catch (Exception e) {
+                                errorMessage = "Error: " + e;
                             }
                         }
                     }
@@ -196,5 +198,9 @@ public class Home {
 
     public boolean isDone() {
         return isDone.get();
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
     }
 }

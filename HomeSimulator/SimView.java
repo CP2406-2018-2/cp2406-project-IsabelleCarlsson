@@ -15,13 +15,14 @@ public class SimView extends JPanel {
         int x = 0;
         int y = 0;
         for (Room room : home.getRoomList()) {
-            graphics.setColor(room.getColor());
-            graphics.fillRect(x, y, room.size, room.size);
-            x += room.size;
-            if (getWidth() <= x) {
+            int width = getWidth();
+            if (getWidth() <= x+room.size) {
                 y += room.size;
                 x = 0;
             }
+            graphics.setColor(room.getColor());
+            graphics.fillRect(x, y, room.size, room.size);
+            x += room.size;
         }
     }
 }

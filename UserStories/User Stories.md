@@ -1,21 +1,23 @@
 # User Stories
 
-- A user need to the status bar to catch error and send to the status label so that they can be notified when errors 
-in the program occur (TODO)
-
-Estimate: 1 hour
-
 - A user needs the program to visualise the home simulator so that the user can see the devices and rooms (BUGGY)
 
 Estimate: 5 hours
 
 Note: Missing devices
 
-- A user needs a information window so that they can view statistics about the simulator (BUGGY)
+- A user needs a information panel so that they can view statistics about the simulator (BUGGY)
 
 Estimate: 7 hours
 
+Note: 
+
 ### Completed
+
+- A user need to the status bar to catch error and send to the status label so that they can be notified when errors 
+occur in the program (DONE)
+
+Estimate: 1 hour
 
 - A user needs the about menu option to show a dialog so that they can see programmers name and the version number
  (Done)
