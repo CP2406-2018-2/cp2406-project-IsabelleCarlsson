@@ -14,11 +14,11 @@ public class Device {
     private String onCondition;
     private String offCondition;
 
-    public Device() {
-        name = "device";
+    public Device(String name, String room) {
+        this.name = name;
         electUsage = 1;
         isActive = false;
-        room = "";
+        this.room = room;
         timeControlled = false;
         tempControlled = false;
         lightControlled = false;
@@ -63,15 +63,38 @@ public class Device {
         room = "";
     }
 
-    public void updateEnvironVars(String time, double temperature, double sunlight) {
-        // Updates environmental variables
+    public void update(String time, double temperature, double sunlight) {
+        // Updates environmental variables & control conditions
         setTime(time);
         setTemperature(temperature);
         setSunlight(sunlight);
+        checkConditions();
     }
 
     private void setTime(String time) {
         this.time = time;
+    }
+
+    private void checkConditions() {
+        if (timeControlled) {
+            if (time.equals(onCondition)) {
+                isActive = true;
+            } else if (time.equals(offCondition)) {
+                isActive = false;
+            }
+        } else if (tempControlled) {
+            if (temperature == Double.parseDouble(onCondition)) {
+                isActive = true;
+            } else if (temperature == Double.parseDouble(offCondition)) {
+                isActive = false;
+            }
+        } else if (lightControlled) {
+            if (temperature == Double.parseDouble(onCondition)) {
+                isActive = true;
+            } else if (temperature == Double.parseDouble(offCondition)) {
+                isActive = false;
+            }
+        }
     }
 
     private void setTemperature(double temperature) {

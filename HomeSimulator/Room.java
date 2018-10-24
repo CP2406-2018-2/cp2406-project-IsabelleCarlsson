@@ -50,7 +50,7 @@ public class Room {
 
     public void updateDevices(String time, double temperature, double sunlight) {
         for (Device device : deviceList) {
-            device.updateEnvironVars(time, temperature, sunlight);
+            device.update(time, temperature, sunlight);
         }
     }
 

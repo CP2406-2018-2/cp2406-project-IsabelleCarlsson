@@ -1,10 +1,8 @@
 # Spike User Stories
 
-- A user needs the devices to react to triggering events config file so that the user can define them conditions (BUGGY)
+- A user needs motion sensors to react to triggering events so that the user can define conditions for them (TODO)
 
-Estimate: 10 hours
-
-Note: Control conditions to work in device class
+Estimate: 3 hours
 
 ### Completed
 
@@ -23,3 +21,8 @@ Estimate 7 hours
 - A user needs an overall amount of sun light to track the sun light throughout the day (DONE)
 
 Estimate 7 hours
+
+- A user needs the devices to react to triggering events so that the user can define the conditions in the config file 
+(DONE)
+
+Estimate: 10 hours

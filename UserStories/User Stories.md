@@ -1,6 +1,7 @@
 # User Stories
 
-- A user need to the status bar to catch error and send to the status label so that they can be notified when errors in the program occur (TODO)
+- A user need to the status bar to catch error and send to the status label so that they can be notified when errors 
+in the program occur (TODO)
 
 Estimate: 1 hour
 
@@ -14,7 +15,10 @@ Note: Missing devices
 
 Estimate: 7 hours
 
-Note: Make a JFrame
+- A user needs the about menu option to show a dialog so that they can see programmers name and the version number
+ (TODO)
+ 
+ Estimate: 10 minutes
 
 ### Completed
 

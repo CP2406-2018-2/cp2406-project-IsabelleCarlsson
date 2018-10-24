@@ -15,6 +15,7 @@ public class HomeTest {
                 home.getSunlight());
         home.stop();
         System.out.println(home.isDone());
+        home.updateDevices("6:55", 28, 100);
         for (Room room : home.getRoomList()) {
             room.displayDevices();
             room.displayStatus();

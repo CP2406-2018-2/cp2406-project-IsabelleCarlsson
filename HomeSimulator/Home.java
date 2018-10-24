@@ -33,7 +33,7 @@ public class Home {
         }
     }
 
-    private void updateDevices(String time, double temperature, double sunlight) {
+    public void updateDevices(String time, double temperature, double sunlight) {
         for (Room room : roomList) {
             room.updateDevices(time, temperature, sunlight);
         }
@@ -72,6 +72,7 @@ public class Home {
         String[] deviceArray;
         String line;
         String delimiter = ",";
+        roomList.clear();
         try {
             InputStream input = new BufferedInputStream(Files.newInputStream(path));
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
@@ -80,7 +81,7 @@ public class Home {
             while (line != null) {
                 deviceArray = line.split(delimiter, 9);
                 String roomName = deviceArray[0];
-                Device device = new Device(deviceArray[1]);
+                Device device = new Device(deviceArray[1], roomName);
                 Room newRoom = new Room(roomName);
 
                 // Set device control conditions
@@ -103,7 +104,6 @@ public class Home {
                     device.setOffCondition(deviceArray[8]);
                 }
 
-                device.setRoomName(roomName);
                 if (getRoomByName(roomName) == null) {
                     newRoom.addDevice(device);
                     roomList.add(newRoom);
