@@ -1,0 +1,21 @@
+Room,deviceName,timeControlled,tempControlled,lightControlled,motionControlled,motionSensor,onCondition,offCondition
+Living Room,Fan,,,,TRUE,Living Room,,
+Living Room,TV,TRUE,,,,17:00,23:00,
+Living Room,Air Conditioner,,TRUE,,,>30,<27,
+Living Room,Light,,,,TRUE,Living Room,TRUE,
+Living Room,Motion Sensor,,,,,,,
+Bedroom,Fan,,,,TRUE,Bedroom,,
+Bedroom,Light,,,,TRUE,Bedroom,,
+Bedroom,Air Conditioner,,TRUE,,,>28,<26,
+Bedroom,Motion Sensor,,,,,,,
+Kitchen,Coffee Machine,TRUE,,,,,6:55,8:00
+Kitchen,Kettle,TRUE,,,,,6:55,7:00
+Kitchen,Microwave,,,,,,,
+Kitchen,Air Conditioner,,TRUE,,,>31,<27,
+Kitchen,Motion Sensor,,,,,,,
+Garage,Car,,,,TRUE,Garage,,
+Garage,Light,,,,TRUE,Garage,,
+Garage,Motion Sensor,,,,,,,
+Garden,Sprinklers,TRUE,,,,,6:00,7:00
+Garden,Light,,,,TRUE,Garden,,
+Garden,Motion Sensor,,,,,,,

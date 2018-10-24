@@ -12,7 +12,7 @@ import javax.swing.SwingWorker;
 
 public class Home {
     private final int RUNNING_TIME = 24; // Running time in simulated hours
-    private static final String CONFIG_PATH = "res/config.txt";
+    private static final String CONFIG_PATH = "res/config.csv";
     private AtomicBoolean isStarted = new AtomicBoolean(false);
     private AtomicBoolean isRunning = new AtomicBoolean(false);
     private AtomicBoolean isDone = new AtomicBoolean(false);
@@ -55,38 +55,63 @@ public class Home {
         return roomList;
     }
 
+    public Room getRoomByName(String roomName) {
+        for (Room room : roomList) {
+            if (room.getName().equals(roomName))
+                return room;
+        }
+        return null;
+    }
+
+    public void addRoom(Room room) {
+        roomList.add(room);
+    }
+
     public void loadConfig() {
         Path path = Paths.get(CONFIG_PATH);
         String[] deviceArray;
         String line;
         String delimiter = ",";
-
         try {
             InputStream input = new BufferedInputStream(Files.newInputStream(path));
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-            System.out.println();
+            reader.readLine(); // skip first line in csv file
             line = reader.readLine();
             while (line != null) {
-                if (line.contains("room rules")) {
-                    while (line != null) {
-                        line = reader.readLine();
-                    }
-                } else if (line.contains("device rules")) {
-                    while (line != null) {
-                        line = reader.readLine();
-                    }
-                } else {
-                    deviceArray = line.split(delimiter);
-                    String roomName = deviceArray[deviceArray.length - 1];
-                    Room room = new Room(roomName);
-                    roomList.add(room);
-                    for (int i = 0; i < deviceArray.length - 1; i++) {
-                        Device device = new Device(deviceArray[i]);
-                        device.setRoomName(roomName);
-                        room.addDevice(device);
-                    }
-                    line = reader.readLine();
+                deviceArray = line.split(delimiter, 9);
+                String roomName = deviceArray[0];
+                Device device = new Device(deviceArray[1]);
+                Room newRoom = new Room(roomName);
+
+                // Set device control conditions
+                if (!(deviceArray[2].isEmpty())) {
+                    device.setTimeControlled(true);
+                    device.setOnCondition(deviceArray[7]);
+                    device.setOffCondition(deviceArray[8]);
+                } else if (!(deviceArray[3].isEmpty())) {
+                    device.setTempControlled(true);
+                    device.setOnCondition(deviceArray[7]);
+                    device.setOffCondition(deviceArray[8]);
+                } else if (!(deviceArray[4].isEmpty())) {
+                    device.setLightControlled(true);
+                    device.setOnCondition(deviceArray[7]);
+                    device.setOffCondition(deviceArray[8]);
+                } else if (!(deviceArray[5].isEmpty())) {
+                    device.setMotionControlled(true);
+                    device.setMotionSensor(deviceArray[6]);
+                    device.setOnCondition(deviceArray[7]);
+                    device.setOffCondition(deviceArray[8]);
                 }
+
+                device.setRoomName(roomName);
+                if (getRoomByName(roomName) == null) {
+                    newRoom.addDevice(device);
+                    roomList.add(newRoom);
+                } else {
+                    Room existingRoom = getRoomByName(roomName);
+                    existingRoom.addDevice(device);
+                }
+                line = reader.readLine();
             }
             reader.close();
         } catch (Exception e) {

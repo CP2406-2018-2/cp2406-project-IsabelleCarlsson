@@ -1,8 +1,10 @@
 # Spike User Stories
 
-- A user needs the triggering events to be read from the config file so that the user can define them (TODO)
+- A user needs the devices to react to triggering events config file so that the user can define them conditions (BUGGY)
 
 Estimate: 10 hours
+
+Note: Control conditions to work in device class
 
 ### Completed
 

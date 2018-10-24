@@ -6,12 +6,54 @@ public class Device {
     private String time;
     private double temperature;
     private double sunlight;
+    private boolean timeControlled;
+    private boolean tempControlled;
+    private boolean lightControlled;
+    private boolean motionControlled;
+    private String motionSensor;
+    private String onCondition;
+    private String offCondition;
 
     public Device() {
         name = "device";
         electUsage = 1;
         isActive = false;
         room = "";
+        timeControlled = false;
+        tempControlled = false;
+        lightControlled = false;
+        motionControlled = false;
+        motionSensor = null;
+        onCondition = null;
+        offCondition = null;
+    }
+
+    public void setTimeControlled(boolean timeControlled) {
+        this.timeControlled = timeControlled;
+    }
+
+    public void setTempControlled(boolean tempControlled) {
+        this.tempControlled = tempControlled;
+    }
+
+    public void setLightControlled(boolean lightControlled) {
+        this.lightControlled = lightControlled;
+    }
+
+    public void setMotionControlled(boolean motionControlled) {
+        this.motionControlled = motionControlled;
+    }
+
+    public void setMotionSensor(String motionSensor) {
+        this.motionSensor = motionSensor;
+    }
+
+    public void setOnCondition(String onCondition) {
+        this.onCondition = onCondition;
+    }
+
+    public void setOffCondition(String offCondition) {
+        this.offCondition = offCondition;
     }
 
     public Device(String name) {
