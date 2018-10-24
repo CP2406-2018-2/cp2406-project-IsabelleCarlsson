@@ -167,15 +167,12 @@ public class MainFrame extends JFrame implements ActionListener {
                 info.setText("Hide Information");
             }
         } else if (source == about) {
+            JOptionPane.showMessageDialog(this, "Isabelle Carlsson\n© James Cook University" +
+                    "\nVersion: 2.07 ");
+        } else if (source == guide) {
             try {
                 Desktop.getDesktop().browse(new URL("https://github.com/CP2406-2018-2/cp2406-project-" +
                         "IsabelleCarlsson/blob/master/README.md").toURI());
-            } catch (Exception exception) {
-                status.setText(String.format("Error: %s", exception));
-            }
-        } else if (source == guide) {
-            try {
-                Desktop.getDesktop().browse(new URL("http://www.google.com").toURI());
             } catch (Exception exception) {
                 status.setText(String.format("Error: %s", exception));
             }

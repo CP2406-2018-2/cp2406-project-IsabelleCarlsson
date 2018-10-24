@@ -15,12 +15,12 @@ Note: Missing devices
 
 Estimate: 7 hours
 
+### Completed
+
 - A user needs the about menu option to show a dialog so that they can see programmers name and the version number
- (TODO)
+ (Done)
  
  Estimate: 10 minutes
-
-### Completed
 
 - A user needs a GUI menu system so that they can navigate the program (DONE)
 
