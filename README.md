@@ -22,5 +22,5 @@ conditions from a .csv file located at /res/config.csv.
 
 ## Disclaimer 
 
-######_Created for assignment purposes for CP2406 at James Cook University_
+###### Created for assignment purposes for CP2406 at James Cook University
 

@@ -12,7 +12,7 @@ import javax.swing.SwingWorker;
 
 public class Home {
     private final int RUNNING_TIME = 24; // Running time in simulated hours
-    private static final String CONFIG_PATH = "res/cofig.csv";
+    private static final String CONFIG_PATH = "res/config.csv";
     private AtomicBoolean isStarted = new AtomicBoolean(false);
     private AtomicBoolean isRunning = new AtomicBoolean(false);
     private AtomicBoolean isDone = new AtomicBoolean(false);
@@ -80,29 +80,29 @@ public class Home {
             reader.readLine(); // skip first line in csv file
             line = reader.readLine();
             while (line != null) {
-                deviceArray = line.split(delimiter, 9);
+                deviceArray = line.split(delimiter, 10);
                 String roomName = deviceArray[0];
-                Device device = new Device(deviceArray[1], roomName);
+                Device device = new Device(deviceArray[1], roomName, Boolean.parseBoolean(deviceArray[2]));
                 Room newRoom = new Room(roomName);
 
                 // Set device control conditions
-                if (!(deviceArray[2].isEmpty())) {
+                if (!(deviceArray[3].isEmpty())) {
                     device.setTimeControlled(true);
-                    device.setOnCondition(deviceArray[7]);
-                    device.setOffCondition(deviceArray[8]);
-                } else if (!(deviceArray[3].isEmpty())) {
-                    device.setTempControlled(true);
-                    device.setOnCondition(deviceArray[7]);
-                    device.setOffCondition(deviceArray[8]);
+                    device.setOnCondition(deviceArray[8]);
+                    device.setOffCondition(deviceArray[9]);
                 } else if (!(deviceArray[4].isEmpty())) {
-                    device.setLightControlled(true);
-                    device.setOnCondition(deviceArray[7]);
-                    device.setOffCondition(deviceArray[8]);
+                    device.setTempControlled(true);
+                    device.setOnCondition(deviceArray[8]);
+                    device.setOffCondition(deviceArray[9]);
                 } else if (!(deviceArray[5].isEmpty())) {
+                    device.setLightControlled(true);
+                    device.setOnCondition(deviceArray[8]);
+                    device.setOffCondition(deviceArray[0]);
+                } else if (!(deviceArray[6].isEmpty())) {
                     device.setMotionControlled(true);
-                    device.setMotionSensor(deviceArray[6]);
-                    device.setOnCondition(deviceArray[7]);
-                    device.setOffCondition(deviceArray[8]);
+                    device.setMotionSensor(deviceArray[7]);
+                    device.setOnCondition(deviceArray[8]);
+                    device.setOffCondition(deviceArray[9]);
                 }
 
                 if (getRoomByName(roomName) == null) {

@@ -13,8 +13,9 @@ public class Device {
     private String motionSensor;
     private String onCondition;
     private String offCondition;
+    private boolean isFixture;
 
-    public Device(String name, String room) {
+    public Device(String name, String room, boolean isFixture) {
         this.name = name;
         electUsage = 1;
         isActive = false;
@@ -26,6 +27,7 @@ public class Device {
         motionSensor = null;
         onCondition = null;
         offCondition = null;
+        this.isFixture = isFixture;
     }
 
     public void setTimeControlled(boolean timeControlled) {
@@ -54,13 +56,6 @@ public class Device {
 
     public void setOffCondition(String offCondition) {
         this.offCondition = offCondition;
-    }
-
-    public Device(String name) {
-        this.name = name;
-        electUsage = 1;
-        isActive = false;
-        room = "";
     }
 
     public void update(String time, double temperature, double sunlight) {
@@ -150,7 +145,19 @@ public class Device {
     }
 
     public void displayStatus() {
-        System.out.println("Device: " + name + "\nRoom: " + room + "\nUsage: " + electUsage + "\nActive: " + isActive +
-                "\n");
+        System.out.println("Device: " + name + "\nRoom: " + room + "\nFixture: " + isFixture + "\nUsage: " + electUsage
+                + "\nActive: " + isActive + "\n");
+    }
+
+    public boolean isFixture() {
+        return isFixture;
+    }
+
+    public void toggleFixture() {
+        if (isFixture)
+            isFixture = !isFixture;
+        else
+            isFixture = !isFixture;
+
     }
 }
