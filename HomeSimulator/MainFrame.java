@@ -118,7 +118,7 @@ public class MainFrame extends JFrame implements ActionListener {
 
         // Create a timer object for infoOutput
         timer = new Timer(1000, evt -> {
-            infoOutput.setText(String.format("\nTime: %s\nTemp: %.2f°C\nLight: %.2f%%\nUsage: %s", home.getTime(),
+            infoOutput.setText(String.format("\nTime: %s\nTemp: %.2f°C\nLight: %.2f%%\nUsage: %s kWh", home.getTime(),
                     home.getTemperature(), home.getSunlight(), home.getElectUsage()));
 
             if (home.isDone()) {

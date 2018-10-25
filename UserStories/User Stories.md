@@ -1,12 +1,9 @@
 # User Stories
+### Completed
 
-- A user needs the program to visualise the home simulator so that the user can see the devices and rooms (BUGGY)
+- A user needs the program to visualise the home simulator so that the user can see the devices and rooms (DONE)
 
 Estimate: 5 hours
-
-Note: Missing devices
-
-### Completed
 
 - A user needs a information panel so that they can view statistics about the simulator (DONE)
 

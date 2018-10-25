@@ -12,8 +12,8 @@ public class Room {
     private List<Device> deviceList = new ArrayList<>();
     private double electUsage;
     private int size;
-    private int red = random.nextInt(256);
-    private int green = random.nextInt(256);
+    private int red = random.nextInt(100);
+    private int green = random.nextInt(100);
     private int blue = random.nextInt(256);
     private Color color = new Color(red, green, blue);
     private static Random random = new Random();
