@@ -17,6 +17,7 @@ public class Home {
     private AtomicBoolean isRunning = new AtomicBoolean(false);
     private AtomicBoolean isDone = new AtomicBoolean(false);
     private List<Room> roomList = new ArrayList<>();
+    private int[] motionSensors = new int[99];
     private int hourCount;
     private int hours;
     private int minutes;
@@ -40,6 +41,38 @@ public class Home {
     public void updateDevices(String time, double temperature, double sunlight) {
         for (Room room : roomList) {
             room.updateDevices(time, temperature, sunlight);
+
+        }
+    }
+
+    private void checkConditions() {
+        for (Room room : roomList) {
+            for (Device device : room.getDeviceList()) {
+                if (device.isTimeControlled()) {
+                    if (time.equals(device.getOnCondition())) {
+                        device.toggleActive();
+                        device.setColor(device.getColor().brighter());
+                    } else if (time.equals(device.getOffCondition())) {
+                        device.toggleActive();
+                        device.setColor(device.getColor().darker());
+                    }
+                } else if (device.isTempControlled()) {
+                    if (temperature == Double.parseDouble(device.getOnCondition())) {
+                        device.toggleActive();
+                        device.setColor(device.getColor().brighter());
+                    } else if (temperature == Double.parseDouble(device.getOffCondition())) {
+                        device.toggleActive();
+                        device.setColor(device.getColor().darker());
+                    }
+                } else if (device.isMotionControlled()) {
+                /*
+                if motion sensor device is on
+                    turn on device
+                else if motion sensor device is off
+                    turn off device
+                 */
+                }
+            }
         }
     }
 
@@ -89,17 +122,13 @@ public class Home {
                         Integer.parseInt(deviceArray[3]));
                 Room newRoom = new Room(roomName);
 
-                // Set device control conditions
+                // Set device trigger controller and condition
                 if (!(deviceArray[4].isEmpty())) {
                     device.setTimeControlled(true);
                     device.setOnCondition(deviceArray[9]);
                     device.setOffCondition(deviceArray[10]);
                 } else if (!(deviceArray[5].isEmpty())) {
                     device.setTempControlled(true);
-                    device.setOnCondition(deviceArray[9]);
-                    device.setOffCondition(deviceArray[10]);
-                } else if (!(deviceArray[6].isEmpty())) {
-                    device.setLightControlled(true);
                     device.setOnCondition(deviceArray[9]);
                     device.setOffCondition(deviceArray[10]);
                 } else if (!(deviceArray[7].isEmpty())) {
@@ -109,6 +138,11 @@ public class Home {
                     device.setOffCondition(deviceArray[10]);
                 }
 
+                // Check if device is a light
+                if (!(deviceArray[6].isEmpty()))
+                    device.isLight(true);
+
+                // Create new room if not existent
                 if (getRoomByName(roomName) == null) {
                     newRoom.addDevice(device);
                     roomList.add(newRoom);
@@ -143,19 +177,18 @@ public class Home {
                     while (!isDone.get()) {
                         if (isRunning.get()) {
                             try {
-                                Thread.sleep(1000); // sleep for a second
+                                Thread.sleep(1000); // pause for a second
                                 minutes++;
 
-                                if (hourCount < 7) {
+                                if (hourCount < 7) { // Decrease by
                                     temperature += 0.03;
                                 } else if (hourCount > 7) {
                                     temperature -= 0.0131;
                                 }
 
-
-                                if (hourCount == 0) { // 0 to 100 during first hour of simulation
+                                if (hourCount == 0) { // 0 to 100% during first hour of simulation
                                     sunlight += 1.6666666666666666666666666666667;
-                                } else if (hourCount == 12) { // 100 to 0 during first hour of simulation
+                                } else if (hourCount == 12) { // 100% to 0 at hour 17 of simulation
                                     sunlight -= 1.6666666666666666666666666666667;
                                 }
 
@@ -171,13 +204,16 @@ public class Home {
                                     hourCount++;
                                 }
 
+                                // Limit the simulation time
                                 if (hourCount >= RUNNING_TIME) {
                                     stop();
                                 }
 
+                                // Update all variables of the simulation
                                 time = String.format("%d:%02d", hours, minutes);
                                 updateRooms(time, temperature, sunlight);
                                 updateDevices(time, temperature, sunlight);
+                                checkConditions();
                                 calcElectUsage();
                             } catch (Exception e) {
                                 errorMessage = "Error: " + e;

@@ -56,8 +56,8 @@ public class MainFrame extends JFrame implements ActionListener {
         gridBagConstraints.weightx = gridBagConstraints.weighty = 100;
 
         // infoOutput
-        infoOutput = new JTextArea(10, 29);
-        infoOutput.setFont(new Font("Calibri", Font.PLAIN, 24));
+        infoOutput = new JTextArea(14, 34);
+        infoOutput.setFont(new Font("Calibri", Font.PLAIN, 20));
         infoOutput.setEditable(false);
         infoOutput.setVisible(true);
 
@@ -118,9 +118,16 @@ public class MainFrame extends JFrame implements ActionListener {
 
         // Create a timer object for infoOutput
         timer = new Timer(1000, evt -> {
-            infoOutput.setText(String.format("\nTime: %s\nTemp: %.2f°C\nLight: %.2f%%\nUsage: %s kWh", home.getTime(),
-                    home.getTemperature(), home.getSunlight(), home.getElectUsage()));
-
+            infoOutput.setText("");
+            infoOutput.setText(String.format("Time: %s\nTemp: %.2f°C\nLight: %.2f%%", home.getTime(),
+                    home.getTemperature(), home.getSunlight()));
+            for (Room room : home.getRoomList()) {
+                infoOutput.append(String.format("\n%s: %.2f kWh", room.getName(), room.getElectUsage()));
+            }
+            infoOutput.append(String.format("\n" + "-------------------------------" +
+                    "\nTotal Usage: %s kWh", home.getElectUsage()));
+            infoOutput.append(String.format("\nTotal Cost: $%.2f", (home.getElectUsage()*0.0046041)));
+            graphicsPane.repaint();
             if (home.isDone()) {
                 run.setEnabled(true);
                 pause.setEnabled(false);

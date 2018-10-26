@@ -11,7 +11,7 @@ public class Device {
     private double sunlight;
     private boolean timeControlled;
     private boolean tempControlled;
-    private boolean lightControlled;
+    private boolean isLight;
     private boolean motionControlled;
     private String motionSensor;
     private String onCondition;
@@ -31,7 +31,7 @@ public class Device {
         this.roomName = roomName;
         timeControlled = false;
         tempControlled = false;
-        lightControlled = false;
+        isLight = false;
         motionControlled = false;
         motionSensor = null;
         onCondition = null;
@@ -56,8 +56,12 @@ public class Device {
         this.tempControlled = tempControlled;
     }
 
-    public void setLightControlled(boolean lightControlled) {
-        this.lightControlled = lightControlled;
+    public void isLight(boolean isLight) {
+        this.isLight = isLight;
+    }
+
+    public boolean isLight() {
+        return this.isLight;
     }
 
     public void setMotionControlled(boolean motionControlled) {
@@ -77,37 +81,42 @@ public class Device {
     }
 
     public void update(String time, double temperature, double sunlight) {
-        // Updates environmental variables & triggering conditions
+        // Updates environmental variables & checks triggering conditions
         setTime(time);
         setTemperature(temperature);
         setSunlight(sunlight);
-        checkConditions();
+    }
+
+    public boolean isMotionControlled() {
+        return motionControlled;
+    }
+
+    public boolean isTempControlled() {
+        return tempControlled;
+    }
+
+    public boolean isTimeControlled() {
+        return timeControlled;
+    }
+
+    public String getMotionSensor() {
+        return motionSensor;
+    }
+
+    public String getOnCondition() {
+        return onCondition;
+    }
+
+    public String getOffCondition() {
+        return offCondition;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 
     private void setTime(String time) {
         this.time = time;
-    }
-
-    private void checkConditions() {
-        if (timeControlled) {
-            if (time.equals(onCondition)) {
-                isActive = true;
-            } else if (time.equals(offCondition)) {
-                isActive = false;
-            }
-        } else if (tempControlled) {
-            if (temperature == Double.parseDouble(onCondition)) {
-                isActive = true;
-            } else if (temperature == Double.parseDouble(offCondition)) {
-                isActive = false;
-            }
-        } else if (lightControlled) {
-            if (temperature == Double.parseDouble(onCondition)) {
-                isActive = true;
-            } else if (temperature == Double.parseDouble(offCondition)) {
-                isActive = false;
-            }
-        }
     }
 
     private void setTemperature(double temperature) {
@@ -176,6 +185,5 @@ public class Device {
             isFixture = !isFixture;
         else
             isFixture = !isFixture;
-
     }
 }

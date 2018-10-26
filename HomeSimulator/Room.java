@@ -54,6 +54,17 @@ public class Room {
         for (Device device : deviceList) {
             device.update(time, temperature, sunlight);
         }
+        checkLights();
+    }
+
+    public void checkLights() {
+        for (Device device : deviceList) {
+            if (device.isLight() && device.isActive()) {
+                this.color = color.brighter();
+            } else if (device.isLight() && (!device.isActive())) {
+                this.color = color.darker();
+            }
+        }
     }
 
     public String getName() {

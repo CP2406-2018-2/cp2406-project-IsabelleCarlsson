@@ -1,8 +1,10 @@
 # Spike User Stories
 
-- A user needs motion sensors to react to triggering events so that the user can define conditions for them (TODO)
+- A user needs motion sensors to react to triggering events so that the user can define conditions for them (BUGGY)
 
 Estimate: 3 hours
+
+Note: Update csv file format
 
 ### Completed
 

@@ -38,15 +38,16 @@ public class SimView extends JPanel {
                 }
                 graphics.setColor(device.getColor());
                 graphics.fillRect(deviceX, deviceY, device.getSize(), device.getSize());
-                graphics.setFont(new Font("Arial", Font.PLAIN, 10));
+                graphics.setFont(new Font("Arial", Font.PLAIN, 9));
                 graphics.setColor(Color.WHITE);
                 deviceName = device.getName().replaceAll("\\s+","");
                 deviceNameLength = deviceName.length();
                 if (deviceNameLength > 7) {
                     graphics.drawString(deviceName.substring(0,7), deviceX + 2, deviceY + 10);
-                    graphics.drawString(deviceName.substring(7, deviceNameLength), deviceX + 2, deviceY + 20);
+                    graphics.drawString(deviceName.substring(7, deviceNameLength), deviceX + 3
+                            , deviceY + 20);
                 } else {
-                    graphics.drawString(device.getName(), deviceX + 2, deviceY + 10);
+                    graphics.drawString(device.getName(), deviceX + 1, deviceY + 10);
                 }
                 deviceX += device.getSize();
             }
