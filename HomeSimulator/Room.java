@@ -12,15 +12,10 @@ public class Room {
     private List<Device> deviceList = new ArrayList<>();
     private double electUsage;
     private int size;
-    private int red = random.nextInt(100);
-    private int green = random.nextInt(100);
-    private int blue = random.nextInt(256);
-    private Color color = new Color(red, green, blue);
-    private static Random random = new Random();
+    private Color color = new Color(99,49,0);
 
     public Room(String name) {
         this.name = name;
-        isActive = false;
         size = 160;
     }
 
@@ -42,6 +37,18 @@ public class Room {
         }
     }
 
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
     public void updateRoom(String time, double temperature, double sunlight) {
         // Updates environmental variables and electricity usage
         setTime(time);
@@ -53,17 +60,6 @@ public class Room {
     public void updateDevices(String time, double temperature, double sunlight) {
         for (Device device : deviceList) {
             device.update(time, temperature, sunlight);
-        }
-        checkLights();
-    }
-
-    public void checkLights() {
-        for (Device device : deviceList) {
-            if (device.isLight() && device.isActive()) {
-                this.color = color.brighter();
-            } else if (device.isLight() && (!device.isActive())) {
-                this.color = color.darker();
-            }
         }
     }
 
@@ -99,13 +95,9 @@ public class Room {
         this.name = name;
     }
 
-    public boolean isActive() {
-        return isActive;
-    }
-
     public void displayStatus() {
-        System.out.println("Room: " + name + "\nTemperature: " + getTemperature() + "\nUsage: " + getElectUsage() +
-                "\nActive: " + isActive + "\n");
+        System.out.println("Room: " + name + "\nTemperature: " + getTemperature() + "\nUsage: " +
+                getElectUsage() + "\n");
     }
 
     public void addDevice(Device device) {
@@ -115,7 +107,7 @@ public class Room {
     public void calcElectUsage() {
         electUsage = 0;
         for (Device device : deviceList) {
-            if (device.isActive()) {
+            if (device.isOn()) {
                 electUsage += device.getElectUsage();
             }
         }
@@ -123,9 +115,5 @@ public class Room {
 
     public double getElectUsage() {
         return electUsage;
-    }
-
-    public void toggleActive() {
-        this.isActive = (!isActive);
     }
 }

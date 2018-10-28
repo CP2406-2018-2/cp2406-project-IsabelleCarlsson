@@ -1,12 +1,8 @@
 # Spike User Stories
-
-- A user needs motion sensors to react to triggering events so that the user can define conditions for them (BUGGY)
+### Completed
+- A user needs motion sensors to react to triggering events so that the user can define conditions for them (DONE)
 
 Estimate: 3 hours
-
-Note: Update csv file format
-
-### Completed
 
 - A user needs a way to make device belong to a roomName (DONE)
 

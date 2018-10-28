@@ -36,13 +36,9 @@ public class MainFrame extends JFrame implements ActionListener {
         setTitle("Smart Home Automation Simulator");
         setSize(500, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // setLocationRelativeTo(null);
-
         setVisible(true);
         setLayout(new BorderLayout());
-
         home = new Home();
-
         Border eBorder = BorderFactory.createEtchedBorder();
 
         // gridBagConstraints
@@ -79,7 +75,6 @@ public class MainFrame extends JFrame implements ActionListener {
         mainDisplay.add(infoPane, gridBagConstraints);
         mainDisplay.add(graphicsPane, gridBagConstraints);
         mainDisplay.add(infoPane);
-
         add(mainDisplay);
         add(status, BorderLayout.SOUTH);
 

@@ -4,7 +4,7 @@ import java.util.Random;
 public class Device {
     private String name;
     private int electUsage;
-    private boolean isActive;
+    private boolean isOn;
     private String roomName;
     private String time;
     private double temperature;
@@ -12,8 +12,8 @@ public class Device {
     private boolean timeControlled;
     private boolean tempControlled;
     private boolean isLight;
+    private boolean isMotionSensor;
     private boolean motionControlled;
-    private String motionSensor;
     private String onCondition;
     private String offCondition;
     private boolean isFixture;
@@ -26,17 +26,17 @@ public class Device {
 
     public Device(String name, String roomName, boolean isFixture, int electUsage) {
         this.name = name;
-        this.electUsage = electUsage;
-        isActive = false;
         this.roomName = roomName;
+        this.electUsage = electUsage;
+        this.isFixture = isFixture;
+        isOn = false;
+        isLight = false;
+        isMotionSensor = false;
         timeControlled = false;
         tempControlled = false;
-        isLight = false;
         motionControlled = false;
-        motionSensor = null;
         onCondition = null;
         offCondition = null;
-        this.isFixture = isFixture;
         size = 40;
     }
 
@@ -56,6 +56,10 @@ public class Device {
         this.tempControlled = tempControlled;
     }
 
+    public void setMotionControlled(boolean motionControlled) {
+        this.motionControlled = motionControlled;
+    }
+
     public void isLight(boolean isLight) {
         this.isLight = isLight;
     }
@@ -64,12 +68,8 @@ public class Device {
         return this.isLight;
     }
 
-    public void setMotionControlled(boolean motionControlled) {
-        this.motionControlled = motionControlled;
-    }
-
-    public void setMotionSensor(String motionSensor) {
-        this.motionSensor = motionSensor;
+    public void isMotionSensor(boolean isMotionSensor) {
+        this.isMotionSensor = isMotionSensor;
     }
 
     public void setOnCondition(String onCondition) {
@@ -87,10 +87,6 @@ public class Device {
         setSunlight(sunlight);
     }
 
-    public boolean isMotionControlled() {
-        return motionControlled;
-    }
-
     public boolean isTempControlled() {
         return tempControlled;
     }
@@ -99,8 +95,8 @@ public class Device {
         return timeControlled;
     }
 
-    public String getMotionSensor() {
-        return motionSensor;
+    public boolean isMotionControlled() {
+        return motionControlled;
     }
 
     public String getOnCondition() {
@@ -163,27 +159,22 @@ public class Device {
         this.electUsage = electUsage;
     }
 
-    public boolean isActive() {
-        return isActive;
+    public boolean isOn() {
+        return isOn;
     }
 
-    public void toggleActive() {
-        this.isActive = (!isActive);
+
+    public void setOn(boolean isActive) {
+        this.isOn = isActive;
     }
 
     public void displayStatus() {
         System.out.println("Device: " + name + "\nRoom: " + roomName + "\nFixture: " + isFixture + "\nUsage: " + electUsage
-                + "\nActive: " + isActive + "\n");
+                + "\nActive: " + isOn + "\n");
     }
 
     public boolean isFixture() {
         return isFixture;
     }
 
-    public void toggleFixture() {
-        if (isFixture)
-            isFixture = !isFixture;
-        else
-            isFixture = !isFixture;
-    }
 }

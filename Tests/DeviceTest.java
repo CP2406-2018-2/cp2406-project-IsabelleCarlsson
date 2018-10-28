@@ -9,7 +9,6 @@ public class DeviceTest {
         device.setRoomName("Kitchen");
         System.out.println("Room: " + device.getRoomName());
         device.displayStatus();
-        device.toggleActive();
         device.displayStatus();
     }
 }

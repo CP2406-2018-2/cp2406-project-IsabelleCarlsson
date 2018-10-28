@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -17,7 +18,7 @@ public class Home {
     private AtomicBoolean isRunning = new AtomicBoolean(false);
     private AtomicBoolean isDone = new AtomicBoolean(false);
     private List<Room> roomList = new ArrayList<>();
-    private int[] motionSensors = new int[99];
+    private List<Device> motionSensors = new ArrayList<>();
     private int hourCount;
     private int hours;
     private int minutes;
@@ -49,28 +50,40 @@ public class Home {
         for (Room room : roomList) {
             for (Device device : room.getDeviceList()) {
                 if (device.isTimeControlled()) {
-                    if (time.equals(device.getOnCondition())) {
-                        device.toggleActive();
+                    if (time.equals(device.getOnCondition()) && !device.isOn()) {
+                        device.setOn(true);
                         device.setColor(device.getColor().brighter());
-                    } else if (time.equals(device.getOffCondition())) {
-                        device.toggleActive();
+                    } else if (time.equals(device.getOffCondition()) && device.isOn()) {
+                        device.setOn(false);
                         device.setColor(device.getColor().darker());
                     }
                 } else if (device.isTempControlled()) {
-                    if (temperature == Double.parseDouble(device.getOnCondition())) {
-                        device.toggleActive();
+                    if (temperature == Double.parseDouble(device.getOnCondition()) && !device.isOn()) {
+                        device.setOn(true);
                         device.setColor(device.getColor().brighter());
-                    } else if (temperature == Double.parseDouble(device.getOffCondition())) {
-                        device.toggleActive();
+                    } else if (temperature == Double.parseDouble(device.getOffCondition()) && device.isOn()) {
+                        device.setOn(false);
                         device.setColor(device.getColor().darker());
                     }
                 } else if (device.isMotionControlled()) {
-                /*
-                if motion sensor device is on
-                    turn on device
-                else if motion sensor device is off
-                    turn off device
-                 */
+                    for (Device motionSensor : motionSensors) {
+                        if ((motionSensor.isOn() && !device.isOn()) &&
+                                (motionSensor.getRoomName().equals(device.getRoomName()))) {
+                            device.setOn(true);
+                            device.setColor(device.getColor().brighter());
+                        } else if ((!motionSensor.isOn() && device.isOn()) &&
+                                (motionSensor.getRoomName().equals(device.getRoomName()))) {
+                            device.setOn(false);
+                            device.setColor(device.getColor().darker());
+                        }
+                    }
+                }
+
+                // Change colour of room when light is on
+                if ((device.isLight() && device.isOn()) && (device.getRoomName().equals(room.getName()))) {
+                    room.setColor(new Color(139,69,19));
+                } else if ((device.isLight() && !device.isOn()) && (device.getRoomName().equals(room.getName()))) {
+                    room.setColor(new Color(99,49,0));
                 }
             }
         }
@@ -109,7 +122,14 @@ public class Home {
         String[] deviceArray;
         String line;
         String delimiter = ",";
+        String deviceName;
+        String roomName;
+        String onCondition;
+        String offCondition;
+        int electUsage;
+        boolean isFixture = false;
         roomList.clear();
+
         try {
             InputStream input = new BufferedInputStream(Files.newInputStream(path));
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
@@ -117,30 +137,36 @@ public class Home {
             line = reader.readLine();
             while (line != null) {
                 deviceArray = line.split(delimiter, 11);
-                String roomName = deviceArray[0];
-                Device device = new Device(deviceArray[1], roomName, Boolean.parseBoolean(deviceArray[2]),
-                        Integer.parseInt(deviceArray[3]));
+                roomName = deviceArray[0];
+                deviceName = deviceArray[1];
+                electUsage = Integer.parseInt(deviceArray[2]);
+                if (!(deviceArray[3] == null))
+                    isFixture = true;
+                onCondition = deviceArray[9];
+                offCondition = deviceArray[10];
+                Device device = new Device(deviceName, roomName, isFixture, electUsage);
                 Room newRoom = new Room(roomName);
 
                 // Set device trigger controller and condition
-                if (!(deviceArray[4].isEmpty())) {
+                if ((Boolean.parseBoolean(deviceArray[5]))) {
+                    device.isLight(true);
+                }
+                if (Boolean.parseBoolean(deviceArray[6])) {
                     device.setTimeControlled(true);
-                    device.setOnCondition(deviceArray[9]);
-                    device.setOffCondition(deviceArray[10]);
-                } else if (!(deviceArray[5].isEmpty())) {
+                    device.setOnCondition(onCondition);
+                    device.setOffCondition(offCondition);
+                } else if (Boolean.parseBoolean(deviceArray[7])) {
                     device.setTempControlled(true);
-                    device.setOnCondition(deviceArray[9]);
-                    device.setOffCondition(deviceArray[10]);
-                } else if (!(deviceArray[7].isEmpty())) {
+                    device.setOnCondition(onCondition);
+                    device.setOffCondition(offCondition);
+                } else if (Boolean.parseBoolean(deviceArray[8])) {
                     device.setMotionControlled(true);
-                    device.setMotionSensor(deviceArray[8]);
-                    device.setOnCondition(deviceArray[9]);
-                    device.setOffCondition(deviceArray[10]);
                 }
 
-                // Check if device is a light
-                if (!(deviceArray[6].isEmpty()))
-                    device.isLight(true);
+                if (Boolean.parseBoolean(deviceArray[4])) {
+                    device.isMotionSensor(true);
+                    motionSensors.add(device);
+                }
 
                 // Create new room if not existent
                 if (getRoomByName(roomName) == null) {
@@ -180,12 +206,11 @@ public class Home {
                                 Thread.sleep(1000); // pause for a second
                                 minutes++;
 
-                                if (hourCount < 7) { // Decrease by
-                                    temperature += 0.03;
+                                if (hourCount < 7) {
+                                    temperature += 0.02857142857142857142857142857143; // 12°C / (7 h * 60 min)
                                 } else if (hourCount > 7) {
-                                    temperature -= 0.0131;
+                                    temperature -= 0.0125; // 12°C / (16 h * 60 min)
                                 }
-
                                 if (hourCount == 0) { // 0 to 100% during first hour of simulation
                                     sunlight += 1.6666666666666666666666666666667;
                                 } else if (hourCount == 12) { // 100% to 0 at hour 17 of simulation

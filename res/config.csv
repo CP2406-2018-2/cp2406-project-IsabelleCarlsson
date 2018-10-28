@@ -1,21 +1,21 @@
-Room,deviceName,isFixture,electricityUsage,timeControlled,tempControlled,isLight,motionControlled,motionSensor,onCondition,offCondition
-Living Room,Fan,TRUE,70,,,,TRUE,Living Room,,
-Living Room,TV,FALSE,200,TRUE,,,,,5:01,5:05
-Living Room,Air Conditioner,TRUE,3000,,TRUE,,,,30,27
-Living Room,Light,FALSE,100,TRUE,,TRUE,,Living Room,5:02,2:04
-Living Room,Motion Sensor,FALSE,1,,,,,,,
-Bedroom,Fan,TRUE,70,,,,TRUE,Bedroom,,
-Bedroom,Light,FALSE,100,,,TRUE,TRUE,Bedroom,,
-Bedroom,Air Conditioner,TRUE,3000,,TRUE,,,,28,26
-Bedroom,Motion Sensor,FALSE,1,,,,,,,
-Kitchen,Coffee Machine,FALSE,800,TRUE,,,,,5:02,5:09
-Kitchen,Kettle,FALSE,2,TRUE,,,,,5:03,5:11
-Kitchen,Microwave,FALSE,1200,,,,,,,
-Kitchen,Air Conditioner,TRUE,3000,,TRUE,,,,31,27
-Kitchen,Motion Sensor,FALSE,1,,,,,,,
-Garage,Car,FALSE,100,,,,TRUE,Garage,,
-Garage,Light,FALSE,100,,,TRUE,TRUE,Garage,,
-Garage,Motion Sensor,FALSE,1,,,,,,,
-Garden,Sprinklers,FALSE,0,TRUE,,,,,6:00,7:00
-Garden,Light,FALSE,100,,,,TRUE,Garden,,
-Garden,Motion Sensor,FALSE,1,,,,,,,
+Room,deviceName,electricityUsage,isFixture,isMotionSensor,isLight,timeControlled,tempControlled,motionControlled,onCondition,offCondition
+Living Room,Fan,70,TRUE,,,,,TRUE,,
+Living Room,TV,200,,,,TRUE,,,5:01,5:05
+Living Room,Air Conditioner,3000,TRUE,,,,TRUE,,30,27
+Living Room,Motion Sensor,1,TRUE,TRUE,,TRUE,,,5:03,5:06
+Living Room,Light,100,,,TRUE,,,TRUE,,
+Bedroom,Fan,70,TRUE,,,,,TRUE,,
+Bedroom,Light,100,,,TRUE,,,TRUE,,
+Bedroom,Air Conditioner,3000,TRUE,,,,TRUE,,28,26
+Bedroom,Motion Sensor,1,TRUE,TRUE,,,,,,
+Kitchen,Coffee Machine,800,,,,TRUE,,,5:02,5:09
+Kitchen,Kettle,2,,,,TRUE,,,5:02,5:11
+Kitchen,Microwave,1200,,,,,,,,
+Kitchen,Air Conditioner,3000,TRUE,,,,TRUE,,31,27
+Kitchen,Motion Sensor,1,TRUE,TRUE,,,,,,
+Garage,Car,100,,,,TRUE,,,7:50,
+Garage,Light,100,,,TRUE,,,TRUE,,
+Garage,Motion Sensor,1,TRUE,TRUE,,,,,,
+Garden,Sprinklers,0,,,,TRUE,,,6:00,6:15
+Garden,Light,100,,,,,,TRUE,,
+Garden,Motion Sensor,1,TRUE,TRUE,,TRUE,,,,

@@ -19,6 +19,10 @@ public class SimView extends JPanel {
         String deviceName;
         int deviceNameLength;
 
+        // Draw background
+        graphics.setColor(new Color(0,100,0));
+        graphics.fillRect(0, 0, getWidth(), getHeight());
+
         // Draw rooms
         for (Room room : home.getRoomList()) {
             if (getWidth() <= roomX + room.getSize()) {
