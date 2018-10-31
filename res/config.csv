@@ -2,7 +2,7 @@ Room,deviceName,electricityUsage,isFixture,isMotionSensor,isLight,timeControlled
 Living Room,Fan,70,TRUE,,,,,TRUE,,
 Living Room,TV,200,,,,TRUE,,,5:01,5:05
 Living Room,Air Conditioner,3000,TRUE,,,,TRUE,,30,27
-Living Room,Motion Sensor,1,TRUE,TRUE,,TRUE,,,5:03,5:06
+Living Room,Motion Sensor,1,TRUE,TRUE,,TRUE,,,,
 Living Room,Light,100,,,TRUE,,,TRUE,,
 Bedroom,Fan,70,TRUE,,,,,TRUE,,
 Bedroom,Light,100,,,TRUE,,,TRUE,,
